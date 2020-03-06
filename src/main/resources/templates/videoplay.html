@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>视频播放</title>
+		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/css/index.css" />
+		<link rel="stylesheet" href="/css/skin.css">
+		<link href="/css/cover.css" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			
+			.websitecolor {
+				background-color: #EBEBEB;
+			}
+			img{
+				cursor: pointer;
+			}
+			
+			
+			.barrage {
+				width: 100%;
+				height: 500px;
+				position: absolute;
+			}
+			
+			.barrage .show div {
+				color: white;
+				position: absolute;
+				right: 0;
+			}
+			
+			.barrage-txt {
+				width: 80%;
+				height:100%;
+				margin-top:4px;
+				background-color: white;
+			}
+			
+			.barrage-send {
+				width: 15%;
+				height:100%;
+				
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="container websitecolor" style="margin：0;padding: 0;border: 1px solid black;">
+
+			<div class="container row">
+				<div class="col-lg-3" style="display: flex;flex-direction:row;margin-top: 10px;">
+					<img th:src="${session.curVideo.user.iconUrl}" style="width:60px; height:60px; border-radius:50%;margin-left: 10px;" />
+					<div style="display: flex;flex-direction:column;margin-top: 4px;padding-left: 20px;">
+						<div style="font-size: 18px;" th:text="${session.curVideo.user.userName}"></div>
+						
+						<!-- 用于标记当前用户观看视频上传者的ID -->
+						<input type="hidden" id="focusedid" th:value="${session.curVideo.user.userId}">
+						
+						<!-- 访问用户的id -->
+						<input type="hidden" id="userId" th:value="${session.user.userId}">
+						<div style="display: flex;flex-direction:row;">
+							<div style="margin-top: 8px;" th:text="${session.curVideo.user.fanNum}"></div>
+							<div style="margin-left: 8px;margin-top: 8px;" >粉丝数</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-1  col-lg-offset-6" style="text-align: center;">
+					<div class="col-lg-12" style="height: 30px;margin-top: 20px;">
+						<button type="button" id="focuson" class="btn btn-default btn-sm" title="关注">
+         					<span class="focusClass glyphicon glyphicon-plus"></span> <span class="focusvalue">关注</span>
+     				   </button>
+					</div>
+				</div>
+				<div class="col-lg-1" style="text-align: center;">
+					<div class="col-lg-12" style="height: 30px;margin-top: 20px;">
+						<button type="button" class="btn btn-default btn-sm" title="私信">
+         					<span class="glyphicon glyphicon-comment"></span> 私信
+     				   </button>
+					</div>
+				</div>
+				<div class="col-lg-1" style="text-align: center;">
+					<div class="col-lg-12" style="height: 30px;margin-top: 20px;">
+						<button type="button" class="btn btn-default btn-sm" title="举报">
+         					<span class="glyphicon glyphicon-plus-sign"></span> 举报
+     				   </button>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-fluid row" style="margin: 10px 0;padding: 0;height: auto;">
+
+				<!--
+                	作者：2539829814@qq.com
+                	时间：2020-02-02
+                	描述：播放视频窗口
+                -->
+				<div class="col-lg-9" style="height: 520px;">
+					
+					<div class="flowplayer " data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 480px; display: block;">
+						<input type="hidden" id="videoId" th:value="${session.curVideo.videoId}">
+						<video autoplay="autoplay" class="fp-play" style="height: 100%"> 
+							<source type="video/mp4" class="" th:src="${session.curVideo.videoUrl}" style="height: 100%;">
+						</video>
+						<div class="barrage ">
+							<div class="show">
+							
+							</div>
+						</div>
+					</div>
+					
+					<div class="barrage " style="height: 30px ;width: 100%;">
+						<input type="text" class="barrage-txt" placeholder="请输入弹幕内容" style="text-indent:10px;">
+						<button type="button" class=" btn-default btn-sm barrage-send" style="margin-left: 10px;" title="弹幕">发布弹幕</button>
+					</div>
+				</div>
+				<!--
+                	作者：2539829814@qq.com
+                	时间：2020-02-02
+                	描述：视频信息
+                -->
+				<div class="container col-lg-3">
+					<table class="table table-condensed table-hover with-check" style="word-break:break-all; word-wrap:break-all;">
+						<caption style="font-size: 18px; font-weight: bold;">视频信息</caption>
+						<tbody class="row">
+							<tr>
+								<td class="col-lg-4">名称</td>
+								<td class="col-lg-8" th:text="${session.curVideo.videoTitle}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">描述</td>
+								<td class="col-lg-8" th:text="${session.curVideo.videoInfo}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">上传用户</td>
+								<td class="col-lg-8" th:text="${session.curVideo.user.userName}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">发布时间</td>
+								<td class="col-lg-8" th:text="${session.curVideo.editDate}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">视频类型</td>
+								<td class="col-lg-8" th:text="${session.curVideo.videoType.typeName}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">视频状态</td>
+								<td class="col-lg-8" th:text="${session.curVideo.videoState.stateName}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">即时评分</td>
+								<td class="col-lg-8" id="starNum" th:text="${session.curVideo.ppNum}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">点赞</td>
+								<td class="col-lg-8" id="ppNum" th:text="${session.curVideo.ppNum}"></td>
+							</tr>
+							<tr>
+								<td class="col-lg-4">观看</td>
+								<td class="col-lg-8" th:text="${session.curVideo.viewNum}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="container">
+						<div class="row">
+							<button type="button" class="btn btn-default btn-sm dianzan" title="点赞">
+		         				<span class="dianzan glyphicon glyphicon-thumbs-up"></span><span class="dianzanvalue">点赞</span>
+		     				</button>
+							<button data-html="true" type="button" class="btn btn-default btn-sm pop" title="点评" data-placement="bottom" data-content='
+									<form action="*" method="post" >
+										<div class="form-group">
+										    <select class="form-control" name="commentedstar">
+										      <option  selected="selected">==请选择评星==</option>
+										      <option value="1">★</option>
+										      <option value="2">★★</option>
+										      <option value="3">★★★</option>
+										      <option value="4">★★★★</option>
+										      <option value="5">★★★★★</option>
+										    </select>
+										  </div>
+										<div class="form-group">
+											<input type="hidden" name="userId"  id="userIdTwo" />
+											
+										<div class="form-group">
+										</div>
+											<input type="hidden" name="videoId" id="videoIdTwo"/>
+										</div>
+										<button type="submit" class="btn btn-default">提交</button>
+										<button class="out" type="reset" class="btn btn-default">取消</button>
+									</form>
+									<script type="text/javascript">
+										
+										$(document).ready(
+											function(){
+												var videoId = $("#videoId").val();
+												var userId = $("#userId").val();
+												$("#userIdTwo").attr("value",userId);
+												$("#videoIdTwo").attr("value",videoId);	
+											}
+										);
+										
+										$(".out").click(function(){
+											$(".pop").popover("hide");
+										});
+									</script>
+							'>
+								<span class="glyphicon glyphicon-comment"></span>点评
+							</button>
+							<button id="c_button" type="button" class="btn btn-default btn-sm" title="收藏">
+	         					<span class="c_class glyphicon glyphicon-star-empty"></span><span class="c_value">收藏</span>
+		     				</button>
+							<button type="button" class="btn btn-default btn-sm" title="下载">
+		         				<span class="glyphicon glyphicon-save"></span>下载
+		     				</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		
+			<div class="container-fluid">
+
+				<div style="font-size: 20px; font-weight: bold; margin: 5px 0;">视频推荐</div>
+
+				<div class="container-fluid row" style="margin: 0;padding: 0;">
+
+					<div id="videoList"></div>
+					<button class="btn btn-default" style="margin: 0; padding: 0; width: 100%; height: 30px;margin-top: 10px;background-color: #EBEBEB;">Load More</button>
+				</div>
+			</div>
+		</div>
+
+		<!--
+        	作者：2539829814@qq.com
+        	时间：2019-12-30
+        	描述：网页底部
+        -->
+		<footer class="container footer">
+			<p>Web template built for
+				<a href="#">Website</a> by
+				<a href="#">@xiaoming</a>.</p>
+			<p>
+				<a href="#">Back to top</a>
+			</p>
+		</footer>
+
+
+
+		<script src="/js/jquery.min.js"></script>
+		<!-- include flowplayer -->
+		<script src="/js/flowplayer.min.js"></script>
+
+		<script src="/js/bootstrap.min.js"></script>
+		<script>
+			$(function() {
+				$("#barrage_on_off").click(function() {
+					$(".barrage").toggle();
+					return false;
+				});
+				$(".barrage-send").click(function() {
+					var text = $(".barrage-txt").val();
+					var div = "<div>" + text + "</div>";
+					var width = $(".barrage").width();
+					var height = Math.floor(Math.random() * $(".barrage").height());
+					$(".show").append(div);
+					var length = $('.show div').length;
+					$('.show div').eq(length - 1).css({
+						'top': height,
+						'width': $('.show div').eq(length - 1).width()
+					});
+					$('.show div').eq(length - 1).animate({
+						right: width
+					}, 6000);
+				})
+			});	
+		
+			$(".pop").click(function(){
+				$(".pop").popover("show");
+			});
+			
+			$(document).ready(function(){
+				$.ajax({
+					url:"/VideoController/SimpleVideoListByAjax",
+					async:true,
+					dataType:"JSON",
+				  	success:function(data){
+				  		//alert("成功");
+				  		 $.each(data, function(i,val){
+				  			 var div1 = $('<div class="col-lg-4" style="argin-bottom: 5px;  height: 200px;" />'); 
+				  			
+				  			 var div2 = $('<div class="container-fluid" />');
+				  			 div2.appendTo(div1);
+				  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid black;padding: 0px;" />');
+				  			 div31.appendTo(div2);
+				  			
+				  			 var div32 = $('<div class="container-fluid col-lg-12" style="width: 100%; margin-top: 2px;padding-left: 6px; position: relative;left:;top: -55px;color: white;display: inline-block; opacity: 0.7;background: #000;" />');
+				  			 div32.appendTo(div2);
+				  			
+				  			 var div4 = $('<div class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 100%; display: block;" />');
+				  			 div4.appendTo(div31);
+				  			
+				  			 var img = $('<img class="videoplay"  style="width: 100%;height: 100%;" />');
+				  			 img.appendTo(div4);
+				  			 img.attr("src",this.thumbnailUrl);
+				  			
+				  			 var h3 = $('<h3 style="margin-top: 0;margin-bottom: 2px;" />');
+				  			 h3.html("["+this.videoTitle+"]").appendTo(div32);
+				  			
+				  			 var p = $('<p style="margin-bottom: 4px;">');
+				  			 p.html(this.videoInfo.substring(0,17)+"...").appendTo(div32);
+				  			
+				  			 $("#videoList").before(div1);
+				  			 			
+				  			img.click(function() {
+				  				 window.open("/VideoController/videoPlay?videoId="+val.videoId);
+							});
+					  	});
+					}
+				})
+				//$(".footer").html(htmlobj.responseText);
+			});
+			
+			$('.dianzan').click(
+				function(){
+					var videoId = $('#videoId').val();
+					$.ajax({
+						url:"/VideoController/DianZanByAjax",
+						async:false,
+						data:{"videoId":videoId},
+						dataType:"JSON",
+						error:function(data){
+							alert(data.message);
+						},
+					  	success:function(data){
+					  		var ppNum = $('#ppNum').html();
+					  		var ppNum2 = parseInt(ppNum)+1;
+					  		$('#ppNum').html(ppNum2);
+					  		$('.dianzanvalue').html("已点赞");
+					  		if(data.message!="点赞成功"){
+					  			alert(data.message);
+					  		}
+					  	}
+					})
+				}		
+			);
+			
+			$(document).ready(
+				function(){			
+					var focusedId = $('#focusedid').val();
+					$.ajax({
+						url:"/FocusController/FocusOnByAjax",
+						async:false,
+						type:"post",
+						data:{"focusedId":focusedId},
+						dataType:"JSON",
+						error:function(data){
+							alert(data.message);
+						},
+					  	success:function(data){
+					  		if(data.message=="已关注"){
+					  			$('.focusClass').removeClass("glyphicon-plus");
+						  		$('.focusClass').addClass('glyphicon-ok-circle');
+						  		$('.focusvalue').html("已关注");
+						  	}else{
+						  		$('#focuson').click(
+									function(){			
+										//var focusedId = $('#focusedid').val();
+										$.ajax({
+											url:"/FocusController/FocusOnByAjax",
+											async:false,
+											type:"post",
+											data:{"focusedId":focusedId},
+											dataType:"JSON",
+											error:function(data){
+												alert(data.message);
+											},
+										  	success:function(data){
+										  		if(data.message=="关注成功"){
+										  			$('.focusClass').removeClass("glyphicon-plus");
+											  		$('.focusClass').addClass('glyphicon-ok-circle');
+											  		$('.focusvalue').html("已关注");
+										  			//alert("关注成功");
+										  		}else if(data.message=="不可以对自己进行关注"){
+										  			alert('不可以对自己进行关注');
+										  		}else if(data.message=="关注失败"){
+										  			alert('关注失败');
+										  		}
+										  	}
+										})
+									}		
+								);
+						  	}
+					  	}
+					})
+				}			
+			);
+			
+			
+			$(document).ready(
+				function(){
+					var videoId = $('#videoId').val();
+					$.ajax({
+						url:"/CollectionController/vertifyIfCollectionByAjax",
+						async:false,
+						type:"post",
+						data:{"videoId":videoId},
+						dataType:"JSON",
+						error:function(data){
+							alert(data.message);
+						},
+						success:function(data){
+							if(data.message=="已收藏"){
+								$('.c_class').removeClass("glyphicon-star-empty");
+						  		$('.c_class').addClass('glyphicon-star');
+						  		$('.c_value').html("已收藏");
+						  	}else{
+						  		//未收藏就添加收藏事件
+						  		$('#c_button').click(
+									function(){
+										//var videoId = $('#videoId').val();
+										$.ajax({
+											url:"/CollectionController/addCollectionByAjax",
+											async:false,
+											type:"post",
+											data:{"videoId":videoId},
+											dataType:"JSON",
+											error:function(data){
+												alert(data.message);
+											},
+										  	success:function(data){
+										  		if(data.message=="收藏成功"){
+										  			$('.c_class').removeClass("glyphicon-star-empty");
+											  		$('.c_class').addClass('glyphicon-star');
+											  		$('.c_value').html("已收藏");
+										  			//alert("收藏成功");
+										  		}else if(data.message=="收藏失败"){
+										  			alert('收藏失败');
+										  		}
+										  	}
+										})
+									}		
+								);
+						  	}
+						}
+					})
+				}
+			
+			);
+			
+			
+			
+		</script>
+	</body>
+
+</html>

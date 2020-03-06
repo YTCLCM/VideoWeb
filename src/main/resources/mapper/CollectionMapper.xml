@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.CollectionMapper">
+
+	<insert id="insertOne" parameterType="int" useGeneratedKeys="true">
+		insert into tb_collection(user_id,video_id) values(#{userId},#{videoId});
+	</insert>
+
+	<delete id="deleteCollectionByVideoId" parameterType="int">
+		delete from tb_collection where video_id = #{videoId} and user_id = #{userId};
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="com.liucm.bean.Collection">
+		select * from tb_collection where video_id = #{videoId} and user_id = #{userId};
+	</select>		
+
+	
+ 	<select id="getCollettionAll" parameterType="int" resultMap="videoresultplus">
+ 		SELECT * from tb_video v
+		where v.video_id in (
+			SELECT c.video_id from tb_collection c
+			where c.user_id = #{userId}
+		) and v.video_state_id = 4 
+		GROUP BY v.edit_date DESC;
+ 	</select>
+ 	
+ 	<resultMap type="com.liucm.bean.Video" id="videoresultplus">
+ 		<id column="video_id" property="videoId"/>
+ 		<result column="video_title" property="videoTitle"/>
+ 		<result column="video_info" property="videoInfo"/>
+ 		<result column="edit_date" property="editDate"/>
+ 		<result column="video_url" property="videoUrl"/>
+ 		<result column="thumbnail_url" property="thumbnailUrl"/>
+ 		<result column="view_num" property="viewNum"/>
+ 		<result column="pp_num" property="ppNum"/>
+ 		
+ 		<association property="videoState" javaType="com.liucm.bean.State" column="video_state_id" select="com.liucm.dao.StateMapper.selectStateByStateId"></association>
+ 		
+ 		<association property="user" javaType="com.liucm.bean.User" column="user_id" select="com.liucm.dao.UserMapper.selectOne">
+ 		</association>
+ 		
+ 		<association property="videoType" javaType="com.liucm.bean.VideoType" column="videotype_id" select="com.liucm.dao.VideoTypeMapper.selectVideoTypeByVideoTypeId">
+ 		</association>
+ 	</resultMap>
+</mapper>

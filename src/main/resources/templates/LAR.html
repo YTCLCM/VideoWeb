@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Login</title>
+	<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+	<div class="lowin">
+		<div class="lowin-brand">
+			<img src="/img/kodinger.jpg" alt="logo">
+		</div>
+		<div class="lowin-wrapper">
+			<div class="lowin-box lowin-login">
+				<div class="lowin-box-inner">
+					<form method="post">
+						<p>登录账号</p>
+						<div class="lowin-group">
+							<label>用户名 <a href="#" class="login-back-link">输入用户名</a></label>
+							<input id="userName" type="text"  name="userName" autocomplete="name" class="lowin-input" >
+						</div>
+						<div class="lowin-group password-group">
+							<label>密码 <a id="forget" href="#" class="forgot-link" >忘记密码</a></label>
+							<input type="password" name="password" autocomplete="current-password" class="lowin-input">
+						</div>
+						<button class="lowin-btn login-btn">
+							登录
+						</button>
+
+						<div class="text-foot">
+							不存在账号? <a href="" class="register-link">注册</a>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="lowin-box lowin-register">
+				<div class="lowin-box-inner">
+					<form action="/UserController/register" method="post">
+						<p>开始创建账号</p>
+						<div class="lowin-group">
+							<label>用户名</label>
+							<input type="text" name="userName" autocomplete="name" class="lowin-input">
+						</div>
+						<div class="lowin-group">
+							<label>密码</label>
+							<input type="password" name="password" autocomplete="current-password" class="lowin-input">
+						</div>
+						<input class="lowin-btn" type="submit"/>
+							
+
+						<div class="text-foot">
+							已经存在账号? <a href="" class="login-link">登录</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	
+		<footer class="lowin-footer">
+			Design By @xiaoming
+		</footer>
+	</div>
+
+	<script src="/js/auth.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#forget").click(
+					function(){
+						var value = $("#userName").val();
+						if(value == ""){
+							alert("请先输入用户名！");
+						}
+					}
+			);
+		}); 
+		Auth.init({
+			login_url: '/UserController/login',
+			forgot_url: '/UserController/forget?userName='
+		});
+		
+	</script>
+</body>
+</html>

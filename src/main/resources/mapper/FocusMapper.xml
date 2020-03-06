@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.FocusMapper">
+
+	<select id="selectFocuseds" resultType="com.liucm.bean.User"
+		parameterType="int">
+		select * from tb_user as a
+		where a.user_id in(
+		SELECT b.focused_id from tb_focus as b where b.user_id = #{userId})
+	</select>
+
+	<select id="selectFocuses" resultType="com.liucm.bean.User"
+		parameterType="int">
+		select * from tb_user as a
+		where a.user_id in(
+		SELECT b.user_id from tb_focus as b where b.focused_id = #{userId})
+	</select>	
+	
+	<select id="selectOneVerify" parameterType="com.liucm.bean.Focus" resultType="int">
+		select count(*) from tb_focus where user_id = #{userId} and focused_id = #{focusedId};
+	</select>
+	
+	<insert id="insertOne" parameterType="com.liucm.bean.Focus"
+		useGeneratedKeys="true" keyProperty="focusId">
+		insert into tb_focus(
+		user_id,
+		focused_id
+		)
+		values(
+		#{userId},
+		#{focusedId}
+		)
+	</insert>
+	
+	<delete id="deleteOne" parameterType="com.liucm.bean.Focus">
+		delete from
+		tb_focus
+		where focus_id =#{focusId}
+	</delete>
+</mapper>

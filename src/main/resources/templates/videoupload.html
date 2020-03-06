@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		
+		<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+		<title>视频上传</title>
+		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/css/index.css" />
+		<link rel="stylesheet" href="/css/skin.css">
+		<link href="/css/cover.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="container-fluid" style="margin-bottom: 4px;padding: 0;">
+				<div class="container-fluid row">
+
+					<!--
+                	作者：2539829814@qq.com
+                	时间：2019-12-30
+                	描述：巨幕
+                -->
+					<div class="col-lg-3" style="height: auto; ">
+						<h1>视频发布页</h1>
+						<p>欢迎来到本视频网站。在这，你将发现更多美。</p>
+						<p>
+							<a class="btn btn-info btn-1g" href="http://www.baidu.com" role="button">Learn More</a>
+						</p>
+					</div>
+
+					<!--
+                	作者：2539829814@qq.com
+                	时间：2019-12-30
+                	描述：轮播图
+                	图片要求：800*200的图片大小
+                -->
+					<div class="container col-lg-8 col-lg-offset-1 lunbotu" style="height: 200px;padding: 0;">
+						<div id="myCarousel" class="carousel slide" style="">
+							<!-- 轮播（Carousel）指标 -->
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+							</ol>
+							<!-- 轮播（Carousel）项目 -->
+							<div class="carousel-inner" style="width: 100%; height: 200px;">
+								<div class="item active" align="center" style="width: 100%; height: 200px;">
+									<img src="/img/ad001.jpg" alt="First slide" style="width: 100%; height: 100%;">
+									<div class="carousel-caption">尽情期待</div>
+								</div>
+								<div class="item" align="center" style="width: 100%; height: 200px;">
+									<img src="/img/ad002.jpg" alt="Second slide" style="width: 100%; height: 100%;">
+									<div class="carousel-caption">诚邀加盟</div>
+								</div>
+								<div class="item" align="center" style="width: 100%; height: 200px;">
+									<img src="/img/ad003.jpg" alt="Third slide" style="width: 100%; height: 100%;">
+									<div class="carousel-caption">先到先得</div>
+								</div>
+							</div>
+							<!-- 轮播（Carousel）导航 -->
+							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<form class="form-horizontal" id="videouploadform" action="#" method="post" enctype="multipart/form-data" role="form">
+				<div class="form-group">
+					<label for="firstname" class="col-sm-1 control-label">视频名称</label>
+					<div class="col-sm-11">
+						<input type="text" name="videoTitle" class="form-control" placeholder="请输入视频名称">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="lastname" class="col-sm-1 control-label">视频描述</label>
+					<div class="col-sm-11">
+						<input type="text" name="videoInfo" class="form-control" placeholder="请输入视频描述">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="lastname" class="col-sm-1 control-label">视频类型</label>
+					<div class="col-sm-11">
+						<select class="form-control" name="typeName" placeholder="请选择视频类型">
+					      <option th:each="p,var : ${videoTypeList}"  >
+					      	<p th:text="${p.typeName }"></p>
+					      </option>
+					    </select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="lastname" class="col-sm-1 control-label">视频URL</label>
+					<div class="col-sm-11">
+						<input id="video-selector" type="file" accept="video/mp4,video/avi"  name="videoFile" class="form-control" placeholder="请选择文件">
+					</div>
+				</div>
+				 
+				<input type="hidden" name="userId" th:value="${session.user.userId}" class="form-control" placeholder="请选择文件,文件必须小于200M">
+				 
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+						<div class="checkbox">
+							<label>
+							<input type="checkbox"> 本人确认已仔细阅读并充分理解<a href="https://www.vcg.com/help/privacy-policy"> 个人信息保护政策</a>与<a href="https://www.vcg.com/help/website-terms"> 网站使用条框</a> 的全部内容，同意接受上述协议的全部内容
+						</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-1 col-lg-1">
+						<button id="videoupload" type="button" class="btn btn-default">上传</button>
+					</div>
+					<div class="col-lg-1">
+						<button type="reset" class="btn btn-default">取消</button>
+					</div>
+				</div>
+			</form>
+			
+			
+		</div>
+		<script src="/js/jquery.min.js"></script>
+		<!-- include flowplayer -->
+		<script src="/js/flowplayer.min.js"></script>
+
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/carousel.js"></script>
+		<script src="/js/lunbotu.js"></script>
+		<script type="text/javascript">
+		function alertObj(obj){
+		    var str="";
+		    for (var item in obj){
+		        str +=item+":"+obj[item]+"\n";
+		    }
+		    alert(str);
+		}
+		$("#videoupload").click(			
+				function(){
+					
+					var formData = new FormData($("#videouploadform")[0]);
+					$.ajax({
+						type:"post",
+						url:"/VideoController/videoUpload",
+						async:true,
+						data: formData,
+						dataType:"JSON",
+						processData:false,
+						contentType:false,
+					  	success:function(result){  
+					  	
+					  		alert(result.message);	
+					  		window.close();
+					  		
+						}//success:function
+					});//ajax
+				}		
+			);
+		</script>
+		
+	</body>
+
+</html>

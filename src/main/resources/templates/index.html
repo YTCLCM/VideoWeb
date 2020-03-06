@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>视频网站</title>
+		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/css/index.css" />
+		<link rel="stylesheet" href="/css/skin.css">
+		<link href="/css/navbar.css" rel="stylesheet">
+	
+		<style type="text/css">
+			img{
+				cursor: pointer;
+			}
+			body{
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container" style="padding: 0; background-color: EBEBEB;">
+			<!--
+        	作者：2539829814@qq.com
+        	时间：2019-12-30
+        	描述：巨幕与轮播图
+        -->
+			<div class="container-fluid" style="margin-bottom: 4px;padding: 0;">
+				<div class="container-fluid row">
+
+					<!--
+                	作者：2539829814@qq.com
+                	时间：2019-12-30
+                	描述：巨幕
+                -->
+					<div class="col-lg-3" style="height: auto; ">
+						<h1>Project name</h1>
+						<p>欢迎来到本视频网站。在这，你将发现更多美。</p>
+						<p>
+							<a class="btn btn-info btn-1g" href="http://www.baidu.com" role="button">Learn More</a>
+						</p>
+					</div>
+
+					<!--
+                	作者：2539829814@qq.com
+                	时间：2019-12-30
+                	描述：轮播图
+                	图片要求：800*200的图片大小
+                -->
+					<div class="container col-lg-8 col-lg-offset-1 lunbotu" style="height: 200px;padding: 0;">
+						<div id="myCarousel" class="carousel slide" style="">
+							<!-- 轮播（Carousel）指标 -->
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+							</ol>
+							<!-- 轮播（Carousel）项目 -->
+							<div class="carousel-inner" style="width: 100%; height: 200px;">
+								<div class="item active" align="center" style="width: 100%; height: 200px;">
+									<img src="/img/ad001.jpg" alt="First slide" style="width: 100%; height: 100%;">
+									<div class="carousel-caption">尽情期待</div>
+								</div>
+								<div class="item" align="center" style="width: 100%; height: 200px;">
+									<img src="/img/ad002.jpg" alt="Second slide" style="width: 100%; height: 100%;">
+									<div class="carousel-caption">诚邀加盟</div>
+								</div>
+								<div class="item" align="center" style="width: 100%; height: 200px;">
+									<img src="/img/ad003.jpg" alt="Third slide" style="width: 100%; height: 100%;">
+									<div class="carousel-caption">先到先得</div>
+								</div>
+							</div>
+							<!-- 轮播（Carousel）导航 -->
+							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--
+        	作者：2539829814@qq.com
+        	时间：2019-12-30
+        	描述：网站导航条
+       -->
+			<nav class="navbar navbar-default navbar-inverse">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			            	<span class="sr-only">Toggle navigation</span>
+			             	<span class="icon-bar"></span>
+			             	<span class="icon-bar"></span>
+			             	<span class="icon-bar"></span>
+			            </button>
+						
+						<img class="navbar-brand" th:src="${session.user.iconUrl}" style="width:50px; height:50px; margin-left: 5px;border-radius:50%;"/>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav mytab">
+							<li data-toggle="tab" class="active">
+								<a href="#">首页</a>
+							</li>
+							<li data-toggle="tab">
+								<a id="fd" href="#">动态</a>
+							</li>
+							<li data-toggle="tab">
+								<a href="#">消息</a>
+							</li>
+							
+							<li data-toggle="tab">
+								<a id="UserInformationRedirect" href="#">个人中心</a>
+							</li>
+							
+							<li class="dropdown" data-toggle="tab">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">视频中心 <span class="caret"></span></a>
+								<ul class="dropdown-menu mytab">
+									<li data-toggle="tab" class="dropdown-header">视频管理</li>
+									<li data-toggle="tab">
+										<a id="videostore" href="#">视频中心</a>
+									</li>
+									<li data-toggle="tab">
+										<a id="videoupload" href="#">上传发布</a>
+									</li>
+								</ul>
+							</li>
+							
+						</ul>
+						<ul class="nav navbar-form navbar-left">
+							<li  data-toggle="tab">
+								<form action="#" method="get">
+									<div class="form-group" style="display: flex;flex-direction: row;">
+										<input type="text" style="width: 200px;" name="searchcontent" class="form-control" placeholder="输入内容" />
+										<button type="submit" class="btn btn-default" style="margin-left: 10px;">搜索</button>
+									</div>
+								</form>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown" data-toggle="tab">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span title="设置" class="glyphicon glyphicon-cog"></span></a>
+								<ul class="dropdown-menu mytab">
+									<li data-toggle="tab" class="dropdown-header">设置中心</li>
+									<li data-toggle="tab">
+										<a id="reload" href="#">页面刷新</a>
+									</li>
+									<li data-toggle="tab">
+										<a href="#">安全退出</a>
+									</li>
+									<li data-toggle="tab">
+										<a href="#">账号注销</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+				<!--/.container-fluid -->
+			</nav>
+
+			<!--
+        	作者：2539829814@qq.com
+        	时间：2019-12-30
+        	描述：网站主体
+        -->
+			<div class="container-fluid">
+				<div class="row">
+
+					<!--
+                	作者：2539829814@qq.com
+                	时间：2020-01-06
+                	描述：左边
+                -->
+					<div class="col-md-8 container-fluid" style="border: 2px solid rgba(0,0,0,.125);padding: 0px;">
+						<div style="color: #616e48a1;font-size: large;padding-left: 4px;padding-top: 4px;background-color: f5f5f5;width: 100%;">
+							<label>精彩视频</label>
+							<a style="float: right;margin-right: 10px;" href="#">更多</a>
+						</div>
+
+						<div class="monitor container-fluid row" style="overflow-y: scroll;height: 720px;">
+						
+							<div id="videoList"></div>
+
+							<div class="container-fluid" style="clear: both; height: auto; margin: 0;padding: 0; background-color:f5f5f5;margin-bottom: 0;padding: 0;">
+								<p class="more" style="text-align: center;margin-top: 8px;">正在加载...</p>
+							</div>
+
+						</div>
+
+					</div>
+
+					<!--
+                	作者：2539829814@qq.com
+                	时间：2020-01-06
+                	描述：右边
+                -->
+					<div class="col-md-4" style="border: 2px solid rgba(0,0,0,.125);position: relative;left: 2px;padding: 0px; ">
+
+						<div style="color: #616e48a1;font-size: large;padding-left: 4px;padding-top: 4px;background-color: f5f5f5;width: 100%;">
+							<label>精彩推荐</label>
+							<a style="float: right;margin-right: 10px;" href="#">更多</a>
+						</div>
+
+						<div class="container-fluid" style="padding: 0px;height: 720px;overflow-y: scroll;">
+
+						
+							<div id="recommend"></div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--
+        	作者：2539829814@qq.com
+        	时间：2019-12-30
+        	描述：网页底部
+        -->
+		<footer class="container footer">
+			<p>Web template built for
+				<a href="#">Website</a> by
+				<a href="#">@xiaoming</a>.</p>
+			<p>
+				<a href="#">Back to top</a>
+			</p>
+		</footer>
+
+		<!-- for video tag based installs flowplayer depends on jQuery 1.7.2+ -->
+		<script src="/js/jquery.min.js"></script>
+		<!-- include flowplayer -->
+		<script src="/js/flowplayer.min.js"></script>
+
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/carousel.js"></script>
+		<script src="/js/lunbotu.js"></script>
+
+		<script language="JavaScript">
+			$(".mytab a").click(function(e) {
+				e.preventDefault();
+				$(this).tab("show");
+			});
+			
+			$('#reload').click(
+				function(){
+					window.location.reload();
+				}		
+			);
+			
+			$("#videoupload").click(function(){
+				window.open("/RedirectController/videouploadredirect");
+			});
+			
+			$("#UserInformationRedirect").click(function(){
+				window.open("/RedirectController/UserInformationRedirect");
+			});
+			
+			$("#videostore").click(function(){
+				window.open("/RedirectController/videostoreRedirect");
+			});
+			
+			$("#fd").click(function(){
+				window.open("/RedirectController/fdRedirect");
+			});
+			
+			$(document).ready(function(){
+				$.ajax({
+					url:"/VideoController/VideoListByAjax?curPage=0",
+					async:true,
+					dataType:"JSON",
+				  	success:function(data){
+				  		//alert("成功");
+				  		 $.each(data, function(i,val){
+				  			 var div1 = $('<div class="col-lg-6" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: 200px;" />'); 
+				  			
+				  			 var div2 = $('<div class="container-fluid" />');
+				  			 div2.appendTo(div1);
+				  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
+				  			 div31.appendTo(div2);
+				  			
+				  			 var div32 = $('<div class="container-fluid col-lg-12" style="width: 100%; margin-top: 2px;padding-left: 6px; position: relative;left:;top: -55px;color: white;display: inline-block; opacity: 0.7;background: #000;" />');
+				  			 div32.appendTo(div2);
+				  			
+				  			 var div4 = $('<div class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 100%; display: block;" />');
+				  			 div4.appendTo(div31);
+				  			
+				  			 var img = $('<img class="videoplay"  style="width: 100%;height: 100%;" />');
+				  			 img.appendTo(div4);
+				  			 img.attr("src",this.thumbnailUrl);
+				  			
+				  			 var img2 = $('<img style="height: 50px;width: 50px;float: left;border-radius:50%;margin-right: 4px;"/>');
+				  			 img2.appendTo(div32);
+				  			 img2.attr("src",this.user.iconUrl);
+				  			 
+				  			 var h3 = $('<h3 style="margin-top: 0;margin-bottom: 2px;" />');
+				  			 h3.html("["+this.videoTitle+"]").appendTo(div32);
+				  			
+				  			 var p = $('<p style="margin-bottom: 4px;">');
+				  			 p.html(this.videoInfo.substring(0,18)+"...").appendTo(div32);
+				  			
+				  			 $("#videoList").before(div1);
+				  			 			
+				  			img.click(function() {
+				  				 window.open("/VideoController/videoPlay?videoId="+val.videoId);
+							});
+					  	});
+					}
+				})
+				//$(".footer").html(htmlobj.responseText);
+			});
+			
+			$(document).ready(function(){
+				$.ajax({
+					url:"/VideoController/videoRecommend",
+					async:true,
+					dataType:"JSON",
+				  	success:function(data){
+				  		//alert("成功");
+				  		 $.each(data, function(i,val){
+				  			var div1 = $('<div class="col-md-12" style="padding:0;height: 120px;border: 1px solid rgba(0,0,0,.125);margin: 2px 0px;"/>');
+							var div21 = $('<div style="margin:0;height: 100%;width: 39%;float: left;" />');
+							div21.appendTo(div1);
+							var img = $('<img class="videoplay" src="img/ddd.png" alt="热门推荐" style="width: 100%;height: 100%;" />');
+							img.appendTo(div21);
+							img.attr("src",this.thumbnailUrl);
+							var div22 = $('<div style="float: left;width: 60%;margin: 0;padding: 0;position: relative;left: 4px;" />');
+							div22.appendTo(div1);
+							var h4 = $('<h4 style="float: left;" />');
+							h4.appendTo(div22);
+							h4.html("["+this.videoTitle+"]");
+							var p = $('<p style="padding-bottom: 0px;margin-bottom: 0;clear: left;" />');
+							p.appendTo(div22);
+							p.html(val.videoInfo.substring(0,35)+"...");
+							
+							var div3 = $('<div style="font-size: 12px;margin-top: 0;float: left;position: absolute;top: 100px;" />');
+							div3.appendTo(div22);
+							var font = $('<font text=""/>');
+							font.appendTo(div3);
+							font.html("点赞数：");
+							var sum = $('<sum />');
+							sum.appendTo(div3);
+							sum.html(this.ppNum);
+							$('#recommend').before(div1);
+				  			 			
+							img.click(function() {
+				  				 window.open("/VideoController/videoPlay?videoId="+val.videoId);
+							});
+					  	});
+					}
+				})
+			});
+			
+			
+			var timer = null;
+			var sum = 1;
+			$(document).ready(function(){//在文档加载完毕后执行
+			    $('.monitor').scroll(function(){//开始监听滚动条			    	
+			        var topp = $('.monitor').scrollTop();
+			        if(topp >= 200 && !timer){
+			      		 if(sum<=10)
+			      		 sum+=1;
+			      		 setTimeout(function () {
+			           
+			      			$.ajax({
+								url:"/VideoController/VideoListByAjax",
+								async:true,
+								dataType:"JSON",
+								error:function(data){
+									$('.more').html("我也是有底线的");
+								},
+							  	success:function(data){
+							  		if(data != null && data !=""){
+							  			timer = null;
+							  			 $.each(data, function(i,val){
+								  			 var div1 = $('<div class="col-lg-6" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: 200px;" />'); 
+								  			
+								  			 var div2 = $('<div class="container-fluid " />');
+								  			 div2.appendTo(div1);
+								  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
+								  			 div31.appendTo(div2);
+								  			
+								  			 var div32 = $('<div class="container-fluid col-lg-12" style="width: 100%; margin-top: 2px;padding-left: 6px; position: relative;left:;top: -55px;color: white;display: inline-block; opacity: 0.5;background: #000;" />');
+								  			 div32.appendTo(div2);
+								  			
+								  			 var div4 = $('<div class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 100%; display: block;" />');
+								  			 div4.appendTo(div31);
+								  			
+								  			 var img = $('<img class="videoplay"  style="width: 100%;height: 100%;" />');
+								  			 img.appendTo(div4);
+								  			 img.attr("src",this.thumbnailUrl);
+								  			 
+								  			 var img2 = $('<img style="height: 50px;width: 50px;float: left;border-radius:50%;margin-right: 4px;"/>');
+								  			 img2.appendTo(div32);
+								  			 img2.attr("src",this.user.iconUrl);
+								  			
+								  			 var h3 = $('<h3 style="margin-top: 0;margin-bottom: 2px;" />');
+								  			 h3.html("["+this.videoTitle+"]").appendTo(div32);
+								  			
+								  			 var p = $('<p style="margin-bottom: 4px;">');
+								  			 p.html(this.videoInfo.substring(0,18)+"...").appendTo(div32);
+								  			
+								  			 $("#videoList").before(div1);
+								  			 			
+								  			img.click(function() {
+								  				 window.open("/VideoController/videoPlay?videoId="+val.videoId);
+											});
+									  	});//each
+							  		}//if
+							  		
+							  		
+								}//success:function
+							})//ajax
+			        	 }, 500*sum);//setTimeout
+				
+			        }else{
+				  		
+			        }
+
+			    })
+
+			})
+			
+		</script>
+
+	</body>
+
+</html>

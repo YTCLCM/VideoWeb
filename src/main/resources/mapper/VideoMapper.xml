@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.VideoMapper">
+ 	<insert id="insertVideo" parameterType="com.liucm.bean.Video" useGeneratedKeys="true" keyProperty="videoId">
+	insert into tb_video(
+		video_title,
+		video_info,
+		edit_date,
+		video_url,
+		thumbnail_url,
+		view_num,
+		pp_num,
+		video_state_id,
+		videotype_id,
+		user_id)
+	values(
+		#{videoTitle},
+		#{videoInfo},
+		now(),
+		#{videoUrl},
+		#{thumbnailUrl},
+		0,
+		0,
+		#{videoState.stateId},
+		#{videoType.videoTypeId},
+		#{user.userId})
+ 	</insert>
+ 	
+ 	<delete id="deleteVideoByVideoId" parameterType="int">
+ 		DELETE  from tb_video where video_id = #{videoId}
+ 	</delete>
+ 	
+ 	<update id="updateVideoViewSumByVideoId" parameterType="int">
+ 		UPDATE tb_video set view_num = view_num+1 where video_id = #{videoId}
+ 	</update>
+ 	
+ 	<update id="updateVideoStateByVideoId" parameterType="int">
+ 		UPDATE tb_video set video_state_id = #{stateId} where video_id = #{videoId}
+ 	</update>
+ 	
+ 	<update id="updateVideoPpSumByVideoId" parameterType="int">
+ 		UPDATE tb_video set pp_num = pp_num+1 where video_id = #{videoId}
+ 	</update>
+ 	
+ 	<update id="updateVideoByVideoId" parameterType="com.liucm.bean.Video">
+ 		UPDATE tb_video set 
+		video_info=	#{videoInfo},
+		video_title=#{videoTitle},
+		videotype_id= #{videoType.videoTypeId},
+		thumbnail_url = #{thumbnailUrl},
+		video_url = #{videoUrl},
+		video_state_id= #{videoState.stateId}
+		where video_id = #{videoId};
+ 	</update>
+ 	
+ 	<select id="selectVideoCount" resultType="int">
+ 		select COUNT(*) from tb_video;
+ 	</select>
+ 
+ 
+ 	
+ 	<select id="selectVideoByPPNum" parameterType="int" resultMap="videoresultplus">
+ 		select * from tb_video 
+		ORDER BY pp_num Desc
+		LIMIT 0,#{pageSize};
+ 	</select>
+ 	
+ 	<select id="selectVideoListByAjax" parameterType="int" resultMap="videoresultplus">
+ 		select * from tb_video where video_state_id = 4 limit #{curIndex}, #{pageSize} ;
+ 	</select>
+ 	
+ 	<select id="selectExistVideoListByAjax" parameterType="int" resultMap="videoresultplus">
+ 		select * from tb_video limit #{curIndex}, #{pageSize} ;
+ 	</select>
+ 	
+ 	<select id="selectOneByVideoId" parameterType="int"  resultMap="videoresultplus">
+ 		select * from tb_video where video_id = #{videoId};
+ 	</select>
+ 	
+ 	<select id="selectEnableVideoByUserId" parameterType="int"  resultMap="videoresultplus">
+ 		select * from tb_video where user_id = #{userId} and video_state_id = 4;
+ 	</select>
+ 	
+ 	<select id="selectDisableVideoByUserId" parameterType="int"  resultMap="videoresultplus">
+ 		select * from tb_video where user_id = #{userId} and video_state_id = 5;
+ 	</select>
+ 	
+ 	<select id="selectVerifyingVideoByUserId" parameterType="int"  resultMap="videoresultplus">
+ 		select * from tb_video where user_id = #{userId} and video_state_id = 1;
+ 	</select>
+ 	
+ 	<select id="selectVerifiedVideoByUserId" parameterType="int"  resultMap="videoresultplus">
+ 		select * from tb_video where user_id = #{userId} and video_state_id = 2;
+ 	</select>
+ 	
+ 	<select id="selectVerifyFalseVideoByUserId" parameterType="int"  resultMap="videoresultplus">
+ 		select * from tb_video where user_id = #{userId} and video_state_id = 3;
+ 	</select>
+ 	
+ 	<resultMap type="com.liucm.bean.Video" id="videoresult">
+ 		<id column="video_id" property="videoId"/>
+ 		<result column="video_title" property="videoTitle"/>
+ 		<result column="video_info" property="videoInfo"/>
+ 		<result column="edit_date" property="editDate"/>
+ 		<result column="video_url" property="videoUrl"/>
+ 		<result column="thumbnail_url" property="thumbnailUrl"/>
+ 		<result column="view_num" property="viewNum"/>
+ 		<result column="pp_num" property="ppNum"/>
+ 		
+ 		<association property="videoState" javaType="com.liucm.bean.State">
+ 			<id column="video_state_id" property="stateId"/>
+ 		</association>
+ 		
+ 		<association property="user" javaType="com.liucm.bean.User">
+ 			<id column="user_id" property="userId"/>
+ 		</association>
+ 		
+ 		<association property="videoType" javaType="com.liucm.bean.VideoType">
+ 			<id column="videotype_id" property="videoTypeId"/>
+ 		</association>
+ 	</resultMap>
+ 	
+ 	<resultMap type="com.liucm.bean.Video" id="videoresultplus">
+ 		<id column="video_id" property="videoId"/>
+ 		<result column="video_title" property="videoTitle"/>
+ 		<result column="video_info" property="videoInfo"/>
+ 		<result column="edit_date" property="editDate"/>
+ 		<result column="video_url" property="videoUrl"/>
+ 		<result column="thumbnail_url" property="thumbnailUrl"/>
+ 		<result column="view_num" property="viewNum"/>
+ 		<result column="pp_num" property="ppNum"/>
+ 		
+ 		<association property="videoState" javaType="com.liucm.bean.State" column="video_state_id" select="com.liucm.dao.StateMapper.selectStateByStateId"></association>
+ 		
+ 		<association property="user" javaType="com.liucm.bean.User" column="user_id" select="com.liucm.dao.UserMapper.selectOne">
+ 		</association>
+ 		
+ 		<association property="videoType" javaType="com.liucm.bean.VideoType" column="videotype_id" select="com.liucm.dao.VideoTypeMapper.selectVideoTypeByVideoTypeId">
+ 		</association>
+ 	</resultMap>
+</mapper>

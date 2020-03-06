@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.BarrageMapper">
+	<insert id="insertOne" parameterType="com.liucm.bean.Barrage"
+		useGeneratedKeys="true" keyProperty="barrageId">
+		insert into tb_barrage(
+		context,
+		release_date,
+		pp_num,
+		user_id,
+		video_id
+		)
+		values(
+		#{context},
+		now(),
+		0,
+		#{user.userId},
+		#{video.videoId}
+		);
+	</insert>
+
+	<delete id="deleteOneByBarrageId" parameterType="int">
+		delete from
+		tb_barrage where barrage_id = #{barrageId};
+	</delete>
+</mapper>

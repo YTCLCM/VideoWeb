@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.VideoTypeMapper">
+	<select id="selectAll" resultType="com.liucm.bean.VideoType">
+		select * from tb_videotype;
+	</select>
+
+	<select id="selectVideoTypeByVideoTypeId" parameterType="int" resultType="com.liucm.bean.VideoType">
+		select * from tb_videotype where videotype_id = #{videoTypeId};
+	</select>
+	
+	<select id="selectVideoTypeByTypeName" parameterType="String" resultType="com.liucm.bean.VideoType">
+		select * from tb_videotype where type_name = #{typeName};
+	</select>
+	
+	<insert id="insertOne" parameterType="com.liucm.bean.VideoType"
+		useGeneratedKeys="true" keyProperty="videoTypeId">
+		insert into
+		tb_videotype(
+		type_name
+		)
+		values(
+		#{typeName}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.liucm.bean.VideoType">
+		update tb_videotype
+		set type_name = #{type_name}
+		where videotype_id = #{videoTypeId};
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from tb_videotype where videitype_id = #{videoTypeId}
+	</delete>
+</mapper>
