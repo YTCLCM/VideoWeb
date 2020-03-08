@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.MsgMapper">
+	
+	<update id="updateMsgState" >
+		update tb_message
+		set msg_state_id = #{stateId}
+		where msg_id = #{msgId};
+	</update>
+	
+	<select id="selectMsgByMsgType" resultMap="msgresult">
+		select * from tb_message
+		where msg_receive_user_id = #{receive.userId}
+		<if test="msgType != null and msgType.msgTypeId !=null and msgType.msgTypeId != ''">
+			and msgtype_id = #{msgType.msgTypeId}
+		</if>
+		order by msg_send_date DESC;
+	</select>
+	<resultMap type="com.liucm.bean.Message" id="msgresult">
+		<id property="msgId" column="msg_id"/>
+		<result property="msgTitle" column="msg_title"/>
+		<result property="msgContext" column="msg_context"/>
+		<result property="msgSendDate" column="msg_send_date"/>
+
+ 		<association property="msgState" javaType="com.liucm.bean.State" column="msg_state_id" select="com.liucm.dao.StateMapper.selectStateByStateId"></association>
+ 		
+ 		<association property="sendUser" javaType="com.liucm.bean.User" column="msg_send_user_id" select="com.liucm.dao.UserMapper.selectOne"></association>
+ 		
+ 		<association property="receiveUser" javaType="com.liucm.bean.User" column="msg_receive_user_id" select="com.liucm.dao.UserMapper.selectOne"></association>
+ 		
+ 		<association property="msgType" javaType="com.liucm.bean.VideoType" column="msgtype_id" select="com.liucm.dao.MsgTypeMapper.selectOne"></association>
+	</resultMap>
+	
+	<insert id="insertMsg" useGeneratedKeys="true" keyProperty="msgId">
+		insert into tb_message(
+			msg_title,
+			msg_context,
+			msg_send_date,
+			msg_send_user_id,
+			msg_receive_user_id,
+			msg_state_id,
+			msgtype_id
+		)
+		values(
+			#{msgTitle},
+			#{msgContext},
+			now(),
+			#{sendUser.userId},
+			#{receiveUser.userId},
+			#{msgState.stateId},
+			#{msgType.msgTypeId}
+		);
+	</insert>
+	
+</mapper>

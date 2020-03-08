@@ -46,4 +46,11 @@ public class RedirectController {
 		view.setViewName("videostore");
 		return view;
 	}
+	
+	@RequestMapping("/messageRedirect")
+	public ModelAndView messageRedirect() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("message");
+		return view;
+	}
 }

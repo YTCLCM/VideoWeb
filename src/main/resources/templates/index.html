@@ -18,6 +18,15 @@
 			}
 			body{
 				padding: 0;
+			/* 	background-image: url("/img/zzz.jpg"); */
+			}
+			a{
+				cursor:pointer;
+                text-align: center;
+                text-decoration: none;
+            }
+            a:link,a:visited{
+			 	text-decoration:none;  /*超链接无下划线*/
 			}
 		</style>
 	</head>
@@ -114,7 +123,7 @@
 								<a id="fd" href="#">动态</a>
 							</li>
 							<li data-toggle="tab">
-								<a href="#">消息</a>
+								<a id="messageRedirect" href="#">消息</a>
 							</li>
 							
 							<li data-toggle="tab">
@@ -181,7 +190,7 @@
                 	时间：2020-01-06
                 	描述：左边
                 -->
-					<div class="col-md-8 container-fluid" style="border: 2px solid rgba(0,0,0,.125);padding: 0px;">
+					<div class="col-md-8 container-fluid" style="background-color:;border: 2px solid rgba(0,0,0,.125);padding: 0px;">
 						<div style="color: #616e48a1;font-size: large;padding-left: 4px;padding-top: 4px;background-color: f5f5f5;width: 100%;">
 							<label>精彩视频</label>
 							<a style="float: right;margin-right: 10px;" href="#">更多</a>
@@ -226,7 +235,7 @@
         	时间：2019-12-30
         	描述：网页底部
         -->
-		<footer class="container footer">
+		<footer class="container" style="text-align: center;">
 			<p>Web template built for
 				<a href="#">Website</a> by
 				<a href="#">@xiaoming</a>.</p>
@@ -262,6 +271,10 @@
 			
 			$("#UserInformationRedirect").click(function(){
 				window.open("/RedirectController/UserInformationRedirect");
+			});
+			
+			$("#messageRedirect").click(function(){
+				window.open("/RedirectController/messageRedirect");
 			});
 			
 			$("#videostore").click(function(){

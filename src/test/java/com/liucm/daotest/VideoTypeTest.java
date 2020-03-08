@@ -12,11 +12,14 @@ public class VideoTypeTest extends ApplicationTest {
 	@Autowired
 	private VideoTypeMapper videoTypeMapper;
 	
+	
 	@Test
 	public void TestSelectAll() {
 		for(VideoType videoType:videoTypeMapper.selectAll()) {
-			System.out.println(videoType);
-		}
-	}
+			System.out.println(videoType); 
+		} 
 
+	}
+	
+	
 }

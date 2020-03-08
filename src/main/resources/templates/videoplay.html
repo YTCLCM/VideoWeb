@@ -176,10 +176,10 @@
 							<button type="button" class="btn btn-default btn-sm dianzan" title="点赞">
 		         				<span class="dianzan glyphicon glyphicon-thumbs-up"></span><span class="dianzanvalue">点赞</span>
 		     				</button>
-							<button data-html="true" type="button" class="btn btn-default btn-sm pop" title="点评" data-placement="bottom" data-content='
-									<form action="*" method="post" >
+							<button  data-html="true" type="button" class="btn btn-default btn-sm pop" title="点评" data-placement="bottom" data-content='
+									<form id="commentedstarForm" action="#" method="post" >
 										<div class="form-group">
-										    <select class="form-control" name="commentedstar">
+										    <select class="form-control" name="starNum">
 										      <option  selected="selected">==请选择评星==</option>
 										      <option value="1">★</option>
 										      <option value="2">★★</option>
@@ -195,7 +195,7 @@
 										</div>
 											<input type="hidden" name="videoId" id="videoIdTwo"/>
 										</div>
-										<button type="submit" class="btn btn-default">提交</button>
+										<button id="submitButton" type="button" class="btn btn-default">提交</button>
 										<button class="out" type="reset" class="btn btn-default">取消</button>
 									</form>
 									<script type="text/javascript">
@@ -212,6 +212,27 @@
 										$(".out").click(function(){
 											$(".pop").popover("hide");
 										});
+										
+										$("#submitButton").click(			
+											function(){
+												
+												var formData = new FormData($("#commentedstarForm")[0]);
+												$.ajax({
+													type:"post",
+													url:"/VideoController/commented",
+													async:true,
+													data: formData,
+													dataType:"JSON",
+													processData:false,
+													contentType:false,
+												  	success:function(result){  
+												  	
+												  		alert(result.message);	
+												  		
+													}//success:function
+												});//ajax
+											}		
+										);
 									</script>
 							'>
 								<span class="glyphicon glyphicon-comment"></span>点评
@@ -293,14 +314,13 @@
 					url:"/VideoController/SimpleVideoListByAjax",
 					async:true,
 					dataType:"JSON",
-				  	success:function(data){
-				  		//alert("成功");
+				  	success:function(data){				  		 
 				  		 $.each(data, function(i,val){
-				  			 var div1 = $('<div class="col-lg-4" style="argin-bottom: 5px;  height: 200px;" />'); 
+				  			 var div1 = $('<div class="col-lg-4" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: 200px;" />'); 
 				  			
 				  			 var div2 = $('<div class="container-fluid" />');
 				  			 div2.appendTo(div1);
-				  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid black;padding: 0px;" />');
+				  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
 				  			 div31.appendTo(div2);
 				  			
 				  			 var div32 = $('<div class="container-fluid col-lg-12" style="width: 100%; margin-top: 2px;padding-left: 6px; position: relative;left:;top: -55px;color: white;display: inline-block; opacity: 0.7;background: #000;" />');
@@ -313,11 +333,15 @@
 				  			 img.appendTo(div4);
 				  			 img.attr("src",this.thumbnailUrl);
 				  			
+				  			 var img2 = $('<img style="height: 50px;width: 50px;float: left;border-radius:50%;margin-right: 4px;"/>');
+				  			 img2.appendTo(div32);
+				  			 img2.attr("src",this.user.iconUrl);
+				  			 
 				  			 var h3 = $('<h3 style="margin-top: 0;margin-bottom: 2px;" />');
 				  			 h3.html("["+this.videoTitle+"]").appendTo(div32);
 				  			
 				  			 var p = $('<p style="margin-bottom: 4px;">');
-				  			 p.html(this.videoInfo.substring(0,17)+"...").appendTo(div32);
+				  			 p.html(this.videoInfo.substring(0,18)+"...").appendTo(div32);
 				  			
 				  			 $("#videoList").before(div1);
 				  			 			
@@ -341,14 +365,16 @@
 						error:function(data){
 							alert(data.message);
 						},
-					  	success:function(data){
-					  		var ppNum = $('#ppNum').html();
-					  		var ppNum2 = parseInt(ppNum)+1;
-					  		$('#ppNum').html(ppNum2);
-					  		$('.dianzanvalue').html("已点赞");
+					  	success:function(data){  		
 					  		if(data.message!="点赞成功"){
 					  			alert(data.message);
+					  		}else{
+					  			var ppNum = $('#ppNum').html();
+						  		var ppNum2 = parseInt(ppNum)+1;
+						  		$('#ppNum').html(ppNum2);
+						  		$('.dianzanvalue').html("已点赞");	  			
 					  		}
+					  		$('.dianzan').unbind('click');
 					  	}
 					})
 				}		
@@ -358,7 +384,7 @@
 				function(){			
 					var focusedId = $('#focusedid').val();
 					$.ajax({
-						url:"/FocusController/FocusOnByAjax",
+						url:"/FocusController/FocusVerifyByAjax",
 						async:false,
 						type:"post",
 						data:{"focusedId":focusedId},
@@ -371,7 +397,7 @@
 					  			$('.focusClass').removeClass("glyphicon-plus");
 						  		$('.focusClass').addClass('glyphicon-ok-circle');
 						  		$('.focusvalue').html("已关注");
-						  	}else{
+						  	}else if(data.message=="未关注"){
 						  		$('#focuson').click(
 									function(){			
 										//var focusedId = $('#focusedid').val();
@@ -385,11 +411,11 @@
 												alert(data.message);
 											},
 										  	success:function(data){
+										  		
 										  		if(data.message=="关注成功"){
 										  			$('.focusClass').removeClass("glyphicon-plus");
 											  		$('.focusClass').addClass('glyphicon-ok-circle');
 											  		$('.focusvalue').html("已关注");
-										  			//alert("关注成功");
 										  		}else if(data.message=="不可以对自己进行关注"){
 										  			alert('不可以对自己进行关注');
 										  		}else if(data.message=="关注失败"){
@@ -423,7 +449,7 @@
 								$('.c_class').removeClass("glyphicon-star-empty");
 						  		$('.c_class').addClass('glyphicon-star');
 						  		$('.c_value').html("已收藏");
-						  	}else{
+						  	}else if(data.message=="未收藏"){
 						  		//未收藏就添加收藏事件
 						  		$('#c_button').click(
 									function(){
@@ -445,7 +471,9 @@
 										  			//alert("收藏成功");
 										  		}else if(data.message=="收藏失败"){
 										  			alert('收藏失败');
-										  		}
+										  		}else{
+											  		alert(data.message);
+											  	}
 										  	}
 										})
 									}		

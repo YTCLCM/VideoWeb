@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.MsgTypeMapper">
+	<insert id="insertOne" parameterType="com.liucm.bean.MsgType"
+		useGeneratedKeys="true" keyProperty="msgTypeId">
+		insert into tb_msgtype(
+		msgtype_name,
+		)
+		values(
+		#{msgTypeName},
+		);
+	</insert>
+	<select id="selectByTypeName" parameterType="String" resultType="com.liucm.bean.MsgType">
+		select * from tb_msgtype
+		where msgtype_name = #{msgTypeName};
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="com.liucm.bean.MsgType">
+		select * from tb_msgtype
+		where msgtype_id = #{msgTypeId};
+	</select>
+
+</mapper>

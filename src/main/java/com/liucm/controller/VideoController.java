@@ -36,6 +36,9 @@ public class VideoController {
 
 	@Autowired
 	private Video video;
+	
+	@Autowired
+	private User user;
 
 	@Autowired
 	private VideoService videoService;
@@ -54,6 +57,13 @@ public class VideoController {
 	
 	@Autowired
 	private RecordService recordService;
+	
+	@RequestMapping("commented")
+	@ResponseBody
+	public MsgResponse commented(@RequestParam int starNum,@RequestParam int userId,@RequestParam int videoId) {
+		return MsgResponse.success(videoService.addComment(starNum, userId, videoId),null);
+	}
+	
 
 	@RequestMapping("VideoListByAjax")
 	@ResponseBody
@@ -227,9 +237,9 @@ public class VideoController {
 	
 	@RequestMapping("DianZanByAjax")
 	@ResponseBody
-	public MsgResponse DianZanByAjax(@RequestParam String videoId) {
-		
-		String msg = videoService.addVideoDianZanSum(Integer.parseInt(videoId));
+	public MsgResponse DianZanByAjax(HttpServletRequest request,@RequestParam String videoId) {
+		user = (User)request.getSession().getAttribute("user");
+		String msg = videoService.addVideoDianZanSum(user,Integer.parseInt(videoId));
 		if(msg.equals("点赞成功")) {
 			return MsgResponse.success(msg, null);
 		}else {

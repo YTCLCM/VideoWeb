@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucm.dao.CommentedStarMapper">
+	
+	
+	<insert id="insertOne" useGeneratedKeys="true" >
+		insert into tb_commentedstar(
+			user_id,
+			video_id,
+			star_num,
+			comment_date
+		)
+		values(
+			#{userId},
+			#{videoId},
+			#{starNum},
+			now()
+		);
+	</insert>
+	
+	<select id="selectAll" resultType="com.liucm.bean.CommentedStar">
+		select * from tb_commentedstar;
+	</select>
+	
+	<select id="getCommentedStar" resultType="com.liucm.bean.CommentedStar">
+		select * from tb_commentedstar
+		where user_id = #{userId} and video_id = #{videoId};
+	</select>
+	
+</mapper>

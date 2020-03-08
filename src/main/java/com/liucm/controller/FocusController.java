@@ -32,4 +32,17 @@ public class FocusController {
 			return MsgResponse.error("参数错误");
 		}		
 	}
+	
+	@PostMapping("FocusVerifyByAjax")
+	@ResponseBody
+	public MsgResponse FocusVerifyByAjax(HttpServletRequest request,@RequestParam String focusedId) {
+		User user = (User)request.getSession().getAttribute("user");
+		if(user!=null && focusedId!=null && !focusedId.equals("")) {
+			int userId = user.getUserId();
+			int focusedIdInt = Integer.parseInt(focusedId);		
+			return MsgResponse.success(focusServiceImpl.focusVerify(userId, focusedIdInt), null);
+		}else {
+			return MsgResponse.error("参数错误");
+		}		
+	}
 }
