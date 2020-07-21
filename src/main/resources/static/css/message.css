@@ -1,0 +1,45 @@
+.tip {
+	display: block;
+	background: #f00;
+	border-radius: 50%;
+	width: 8px;
+	height: 8px;
+	
+	float: right;
+	position: relative; 
+
+	right: 1%;
+}
+
+.del {
+	display: block;
+	border-radius: 50%;
+	width: 8px;
+	height: 8px;
+	
+	float: right;
+	position: relative; 
+	right: 1%;
+}
+
+.mydiv:hover {
+	width: 100%;
+	height: auto;
+	border: rgba(0, 0, 0, .125) 1px solid;
+	background: #fff;
+	color: #333;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=rgba(0, 0, 0, .125),
+		direction=120, strength=4);
+	-moz-box-shadow: 2px 2px 10px rgba(0, 0, 0, .125);
+	-webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, .125);
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, .125);
+}
+
+a {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a:link, a:visited {
+	text-decoration: none; /*超链接无下划线*/
+}

@@ -1,5 +1,7 @@
 package com.liucm.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,12 @@ public class FocusServiceImpl implements FocusService {
 		} else {
 			return "已关注";
 		}
+	}
+
+	@Override
+	public List<Integer> getUserFocusList(int userId) {
+		List<Integer> focusedsIdList = focusMapper.selectFocusedsId(userId);
+		return focusedsIdList; 
 	}
 
 }

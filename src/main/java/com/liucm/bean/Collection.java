@@ -2,11 +2,9 @@ package com.liucm.bean;
 
 import java.io.Serializable;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties
 public class Collection implements Serializable{
 
 	private static final long serialVersionUID = 3086120303453993908L;

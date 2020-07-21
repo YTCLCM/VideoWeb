@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.liucm.bean.Video;
+import com.liucm.util.Page;
 
 @Mapper
 public interface VideoMapper {
@@ -25,9 +26,13 @@ public interface VideoMapper {
 	@Select("select count(*) from tb_video")
 	public int selectVideoSum();
 	
+	public List<Integer> getAllVideoId();
+	
 	public Video selectOneByVideoId(int videoId);
 	
 	public int selectVideoCount();
+	
+	public int selectVerifyVideoCount();
 	
 	public List<Video> selectVideoLikeNameAndLimit(String likeName,int curPage,int pageSize);
 	
@@ -35,17 +40,15 @@ public interface VideoMapper {
 	
 	public List<Video> selectExistVideoListByAjax(@Param(value = "curIndex")int curIndex,@Param(value = "pageSize")int pageSize);
 	
+	public List<Video> selectVideoByTypeAjax(@Param(value = "curIndex")int curIndex,@Param(value = "pageSize")int pageSize,@Param(value="videoTypeId")int videoTypeId);
+	
+	public List<Video> selectVideoByPage(@Param(value = "page")Page<Video> page,@Param(value = "stateId") int stateId);
+	
 	public List<Video> selectVideoByUserId(int userId);
 	
-	public List<Video> selectEnableVideoByUserId(int userId);
-	
-	public List<Video> selectDisableVideoByUserId(int userId);
-	
-	public List<Video> selectVerifyingVideoByUserId(int userId);
-	
-	public List<Video> selectVerifiedVideoByUserId(int userId);
-	
-	public List<Video> selectVerifyFalseVideoByUserId(int userId);
+	public List<Video> selectVideoByUserIdAndVideoStateId(@Param(value = "userId")int userId,@Param(value = "videoStateId")int videoStateId);
 	
 	public List<Video> selectVideoByPPNum(int pageSize);
+
+	public List<Video> selectRecommendVideo(@Param(value = "curIndex")int curIndex,@Param(value = "pageSize")int pageSize,@Param(value = "userId")int userId);
 }

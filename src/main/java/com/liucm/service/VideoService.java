@@ -4,10 +4,19 @@ import java.util.List;
 
 import com.liucm.bean.User;
 import com.liucm.bean.Video;
+import com.liucm.util.Page;
 
 public interface VideoService {
+	
+	public boolean verifyVideo(int videoId,int stateId);
 
 	public List<Video> getVideoListByAjax(int curPage, int pageSize);
+	
+	public List<Video> getRecommendVideo(int curPage, int pageSize,int userId);
+	
+	public List<Video> getVideoListByAjax(int curPage, int pageSize,int videoTypeId);
+	
+	public String getVideoByPage(Page<Video> page);
 
 	public List<Video> getVideoRecommend(int pageSize);
 
@@ -29,7 +38,7 @@ public interface VideoService {
 
 	public int downStore(int videoId);
 
-	public int deleteVideo(int videoId);
+	public String deleteVideo(int videoId);
 
 	public int updateVideo(Video video);
 
@@ -37,6 +46,6 @@ public interface VideoService {
 
 	public String addVideoDianZanSum(User user, int videoId);
 
-	public String addComment(int starNum, int userId, int videoId);
+	public String addComment(int starNum, int userId, int videoId);	
 
 }

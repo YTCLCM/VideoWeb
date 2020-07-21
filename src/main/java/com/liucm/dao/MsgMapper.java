@@ -18,4 +18,11 @@ public interface MsgMapper {
 	public int insertMsg(Message msg);
 	
 	public void updateMsgState(@Param(value="msgId")int msgId,@Param(value="stateId")int stateId);
+	
+	public int deleteMessage(@Param(value="msgId")int msgId);
+	
+	public Message selectMessage(@Param(value="msgId")int msgId);
+	
+	public int selectMsgSum(int userId);
+
 }

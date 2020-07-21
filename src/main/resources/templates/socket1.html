@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="text" id="videoId" />
+	<button id="button">观看</button>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		var stomp_Client = null;
+	</script>
+	<script>
+	$('#button').click(function(){
+		var videoId = $('#videoId').val();
+		var socket;
+	    if(typeof(WebSocket) == "undefined") {
+	        console.log("您的浏览器不支持WebSocket");
+	    }else{
+	        index = new WebSocket("ws://localhost:80/BarrageWebSocket?videoId="+videoId);
+	        //打开事件
+	        index.onopen = function() {
+	            console.log("Socket 已打开");
+	            index.send("这是来自客户端的消息" + location.href + new Date());
+	        };
+	        //获得消息事件
+	        index.onmessage = function(msg) {
+	            console.log("data == "+msg.data);
+	            //var result2 = $.parseJSON(msg.data); // 一个Object对象
+	           // console.log( result2.userName ); 
+	            //发现消息进入    开始处理前端触发逻辑
+	        };
+	        //关闭事件
+	        index.onclose = function() {
+	            console.log("Socket已关闭");
+	        };
+	        //发生了错误事件
+	        index.onerror = function() {
+	            alert("Socket发生了错误");
+	        }
+	    }
+	});
+    
+</script>
+
+	
+</body>
+</html>

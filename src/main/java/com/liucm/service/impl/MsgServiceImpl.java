@@ -19,6 +19,10 @@ public class MsgServiceImpl implements MsgService{
 	private MsgMapper msgMapper;
 	
 	@Autowired
+	private Message message;
+	
+	
+	@Autowired
 	private MsgTypeMapper msgTypeMapper;
 	
 	@Autowired
@@ -39,8 +43,53 @@ public class MsgServiceImpl implements MsgService{
 	}
 
 	@Override
-	public int addMsg(Message msg) {
-		return msgMapper.insertMsg(msg);
+	public String addMsg(Message msg) {
+		try {
+			int signal = msgMapper.insertMsg(msg);
+			 if(signal == 1) {
+				 return "信息数据插入成功";
+			 } else {
+				 return "信息数据插入失败";
+			 }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "信息数据插入异常";
+		}	 
+	}
+
+	@Override
+	public String deleteMsg(int msgId) {
+		try {
+			message = msgMapper.selectMessage(msgId);
+			if(message == null) {
+				return "删除数据不存在";
+			}else {
+				msgMapper.deleteMessage(msgId);
+				return "信息删除成功";
+			}
+		} catch (Exception e) {
+			return "系统异常";
+		}
+	}
+
+	@Override
+	public String updateReadMsg(int msgId, int stateId) {
+		try {
+			message = msgMapper.selectMessage(msgId);
+			if(message == null) {
+				return "更新数据不存在";
+			}else {
+				msgMapper.updateMsgState(msgId, stateId);
+				return "信息已读";
+			}		
+		} catch (Exception e) {
+			return "系统异常";
+		}
+	}
+
+	@Override
+	public int getMsgSum(int userId) {
+		return msgMapper.selectMsgSum(userId);
 	}
 
 }

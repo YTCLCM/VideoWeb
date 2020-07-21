@@ -1,0 +1,122 @@
+@media (min-width: 1200px) {
+	.admindiv{
+		height:100%;
+	}
+}
+
+.modal-dialog{
+	width:50%;
+	height: auto;
+}
+.nav-list {
+	background-color: #003b64;
+}
+
+th,tr,td{
+	font-size: 18px;
+}
+
+li a{
+	font-size: 20px;
+	margin:10px auto;
+	color: white;
+	text-decoration: none
+}
+
+.adminname h5 {
+	font-family: "宋体";
+	color: white;
+	font-size: 18px;
+	margin-top: 5px;
+}
+
+.adminIcon h4 {
+	font-family:"宋体";
+	color: white;
+	font-size: 36px;
+	margin: 5px auto;
+}
+
+.adminname h6 {
+	font-family: "宋体";
+	color: white;
+	font-size: 16px;
+}
+.videoplay{
+	padding: 10px 50px;
+}
+.nav li {
+	list-style: none;
+	font-size: 1em;
+	cursor: pointer;
+	color: white;
+	margin: 4px 0 4px 0;
+}
+
+.nav ul {
+	padding-left: 26px;
+	color: #FFFFFFF;
+}
+
+.glyphicon {
+	margin-right: 4px;
+}
+.adminIcon{
+ 	text-align: center;
+ }
+.adminimg{
+		margin: 4px;
+		width: 25%;
+		border-radius: 50%;
+	}
+ @media (max-width: 767px) {
+ 	.adminIcon{
+ 		text-align: left;
+ 	}
+ 
+	.adminIcon h4,.adminname h6{
+		display: none;
+	}
+	.adminimg{
+		position:absolute;
+		z-index:1;
+		float:left;
+		margin: 4px;
+		width: 40px;
+		border-radius: 50%;
+	}
+	.adminname h5{
+		position:absolute;
+		z-index:1;
+		float:left;
+		left:65px;
+		top:14px;
+		font-size: 14px;
+	}
+	.navbar{
+		width: 100%;
+		float: right;
+		
+	}
+	.modal-dialog{
+		width:100%;
+	}
+	.videoplay{
+		padding: 2px 0;
+	}
+} 
+
+@media (max-width: 1267px) {
+	.videoplay{
+		padding: 2px 0;
+	}
+}
+#userManagePage{
+	overflow-x:scroll;
+	 
+}
+
+#videoManagePage{
+	overflow-x:scroll;
+	 
+}

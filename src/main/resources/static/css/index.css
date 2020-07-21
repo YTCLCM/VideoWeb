@@ -1,7 +1,7 @@
 /*
  * Footer
  */
-*{
+* {
 	margin: 0;
 	padding: 0;
 }
@@ -23,5 +23,6 @@ img {
 
 /*隐藏滚动条*/
 ::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
+

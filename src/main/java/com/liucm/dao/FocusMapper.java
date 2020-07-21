@@ -14,6 +14,8 @@ public interface FocusMapper {
 	 */
 	public List<User> selectFocuseds(int userId);
 	
+	public List<Integer> selectFocusedsId(int userId);
+	
 	/**
 	 * 关注该用户的人
 	 * @param userId

@@ -3,101 +3,41 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/icons/icon.ico" type="image/x-icon">
 		<title>消息中心</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/css/xcConfirm.css"/>
 		
-		<style type="text/css">
-			.mydiv:hover{
-			   width:100%;
-			
-			   height:auto;
-			
-			   border:rgba(0,0,0,.125) 1px solid;
-			
-			   background:#fff;
-			
-			   color:#333;
-			
-			   filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0,0,0,.125),direction=120,strength=4);
-			
-			   -moz-box-shadow: 2px 2px 10px rgba(0,0,0,.125);
-			
-			   -webkit-box-shadow: 2px 2px 10px rgba(0,0,0,.125);
-			
-			    box-shadow:2px 2px 10px rgba(0,0,0,.125);
-			}
-			a{
-				cursor:pointer;
-                text-align: center;
-                text-decoration: none;
-            }
-            a:link,a:visited{
-			 	text-decoration:none;  /*超链接无下划线*/
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="/css/message.css">
+		<!-- icon图标 -->
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
+		<!-- 导航条 -->
+		<link rel="stylesheet" href="/css/menu.css" />
+		<link href="/css/style2.css" rel="stylesheet" type="text/css" media="all" />
+
+		<!-- 轮播图样式 -->
+		<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
 	</head>
 
 	<body>
 		<div class="container" style="padding: 0;margin-top:0; background-color: EBEBEB;">
-			<div class="container-fluid" style="margin-bottom: 4px;padding: 0;">
-				<div class="container-fluid row">
-
-					<!--
-                	作者：2539829814@qq.com
-                	时间：2019-12-30
-                	描述：巨幕
-                -->
-					<div class="col-lg-3" style="height: auto; ">
-						<h1>消息中心</h1>
-						<p>欢迎来到本视频网站。在这，你将发现更多美。</p>
-						<p>
-							<a class="btn btn-info btn-1g" href="http://www.baidu.com" role="button">Learn More</a>
-						</p>
-					</div>
-
-					<!--
-                	作者：2539829814@qq.com
-                	时间：2019-12-30
-                	描述：轮播图
-                	图片要求：800*200的图片大小
-                -->
-					<div class="container col-lg-8 col-lg-offset-1 lunbotu" style="height: 200px;padding: 0;">
-						<div id="myCarousel" class="carousel slide" style="">
-							<!-- 轮播（Carousel）指标 -->
-							<ol class="carousel-indicators">
-								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-								<li data-target="#myCarousel" data-slide-to="1"></li>
-								<li data-target="#myCarousel" data-slide-to="2"></li>
-							</ol>
-							<!-- 轮播（Carousel）项目 -->
-							<div class="carousel-inner" style="width: auto; height: 200px;">
-								<div class="item active" align="center">
-									<img src="/img/abc.png" alt="First slide" style="width: 100%; height: 200px;">
-									<div class="carousel-caption">尽情期待</div>
-								</div>
-								<div class="item" align="center">
-									<img src="/img/abc.png" alt="Second slide" style="width: 100%; height: 200px;">
-									<div class="carousel-caption">诚邀加盟</div>
-								</div>
-								<div class="item" align="center">
-									<img src="/img/abc.png" alt="Third slide" style="width: 100%; height: 200px;">
-									<div class="carousel-caption">先到先得</div>
-								</div>
-							</div>
-							<!-- 轮播（Carousel）导航 -->
-							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								<span class="sr-only">Previous</span>
-							</a>
-							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-								<span class="sr-only">Next</span>
-							</a>
-						</div>
-
+			<div class="container main-content" style="padding: 0;margin-top:0; background-color: EBEBEB;">
+			<div class="header">
+				<div class="logo">
+					<img th:src="${session.user.iconUrl}" style="float: left; padding:0;margin-right:15px; width: 45px; height: 45px; border-radius: 50%;" /> <a href="#" style="float: left;">
+						<h1>信息中心</h1>
+					</a>
+				</div>
+				<div class="search">
+					<div class="search2">
+						<form>
+							<i class="fa fa-search"></i> <input type="text" value="Search for a movie" onFocus="this.value = '';"
+								onBlur="if (this.value == '') {this.value = 'Search for a movie, play, event, sport or more';}" />
+						</form>
 					</div>
 				</div>
+				<div class="clearfix"></div>
 			</div>
 
 			<!--
@@ -106,16 +46,13 @@
         	描述：网站导航条
        -->
 			<nav class="navbar navbar-default navbar-inverse">
-				<div class="container-fluid">
+				<div class="container-fluid w3_megamenu" >
 					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-			            	<span class="sr-only">Toggle navigation</span>
-			             	<span class="icon-bar"></span>
-			             	<span class="icon-bar"></span>
-			             	<span class="icon-bar"></span>
-			            </button>
+						<button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle">
+							<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+						</button>
+						<a href="#" class="navbar-brand"><i class="fa fa-home"></i></a>
 
-						<img class="navbar-brand" th:src="${session.user.iconUrl}" style="width:50px; height:50px; margin-left: 5px;border-radius:50%;" />
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav mytab">
@@ -229,172 +166,16 @@
 			
 		</div>
 
-		 <script src="/js/jquery.min.js"></script>
+			 <script src="/js/jquery.min.js"></script>
 			<!-- include flowplayer -->
 			<script src="/js/flowplayer.min.js"></script>
 
 			<script src="/js/bootstrap.min.js"></script>
+			<script src="/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript" src="/js/megamenu.js"></script>
+			<script type="text/javascript" src="/js/message.js"></script>
+			<script src="/js/home.js"></script>
 
-
-			<script type="text/javascript">
-			
-				$('#reload').click(
-					function(){
-						window.location.reload();
-					}		
-				);
-				
-				var allMsg_signal = false;
-				var privateMsg_signal = false;
-				var systemMsg_signal = false;
-				var suportNotice_signal = false;
-				var evaluateNotice_signal = false;
-				var collectionNotice_signal = false;
-
-				
-				$(document).ready(
-					function() {
-						$("#allMsgPage").show();
-						$("#privateMsgPage").hide();
-						$("#systemMsgPage").hide();
-						$("#suportNoticePage").hide();
-						$("#evaluateNoticePage").hide();
-						$("#collectionNoticePage").hide();
-						myAjax("/MsgController/getMsgListByAjax","allMsgPage","allMsgPage","All");
-						allMsg_signal = true;
-					}
-				);
-				$("#allMsgButton").click(
-					function() {
-						$("#allMsgPage").show();
-						$("#privateMsgPage").hide();
-						$("#systemMsgPage").hide();
-						$("#suportNoticePage").hide();
-						$("#evaluateNoticePage").hide();
-						$("#collectionNoticePage").hide();
-						if(allMsg_signal != true){
-							allMsg_signal = true;
-							myAjax("/MsgController/getMsgListByAjax","allMsgPage","allMsgPage","All");
-						}
-					}
-				);
-				$("#privateMsgButton").click(
-					function() {
-						$("#privateMsgPage").show();
-						$("#allMsgPage").hide();
-						$("#systemMsgPage").hide();
-						$("#suportNoticePage").hide();
-						$("#evaluateNoticePage").hide();
-						$("#collectionNoticePage").hide();
-						if(privateMsg_signal !=true){
-							privateMsg_signal =true;
-							myAjax("/MsgController/getMsgListByAjax","privateMsgPage","privateMsgPage","PrivateMsg");
-						}
-					}
-				);
-				$("#systemMsgButton").click(
-					function() {
-						$("#systemMsgPage").show();
-						$("#allMsgPage").hide();
-						$("#privateMsgPage").hide();
-						$("#suportNoticePage").hide();
-						$("#evaluateNoticePage").hide();
-						$("#collectionNoticePage").hide();
-						if(systemMsg_signal !=true){
-							systemMsg_signal = true;
-							myAjax("/MsgController/getMsgListByAjax","systemMsgPage","systemMsgPage","SystemMsg");
-						}
-					}
-				);
-				$("#suportNoticeButton").click(
-					function() {
-						$("#suportNoticePage").show();
-						$("#allMsgPage").hide();
-						$("#privateMsgPage").hide();
-						$("#systemMsgPage").hide();
-						$("#evaluateNoticePage").hide();
-						$("#collectionNoticePage").hide();
-						if(suportNotice_signal !=true){
-							suportNotice_signal = true;
-							myAjax("/MsgController/getMsgListByAjax","suportNoticePage","suportNoticePage","SuportNotice");
-						}
-					}
-				);
-				
-				$("#evaluateNoticeButton").click(
-					function() {
-						$("#evaluateNoticePage").show();
-						$("#allMsgPage").hide();
-						$("#privateMsgPage").hide();
-						$("#systemMsgPage").hide();
-						$("#suportNoticePage").hide();
-						$("#collectionNoticePage").hide();
-						if(evaluateNotice_signal !=true){
-							evaluateNotice_signal = true;
-							myAjax("/MsgController/getMsgListByAjax","evaluateNoticePage","evaluateNoticePage","EvaluateNotice");
-						}
-					}
-				);
-				
-				$("#collectionNoticeButton").click(
-					function() {
-						$("#collectionNoticePage").show();
-						$("#allMsgPage").hide();
-						$("#privateMsgPage").hide();
-						$("#systemMsgPage").hide();
-						$("#suportNoticePage").hide();
-						$("#evaluateNoticePage").hide();
-						if(collectionNotice_signal !=true){
-							collectionNotice_signal = true;
-							myAjax("/MsgController/getMsgListByAjax","collectionNoticePage","collectionNoticePage","CollectionNotice");
-						}
-					}
-				);
-
-				function myAjax(url,showpage_id,id_identify_prefix,msgTypeName){
-					$.ajax({
-						url:url+"?msgTypeName="+msgTypeName,
-						async:true,
-						type:"get",
-						dataType:"JSON",
-						error:function(){
-							alert("失败");
-						},
-					  	success:function(data){
-							//alert("成功");
-							$.each(data, function(i, val) {
-								var div1 = $('<div class="mydiv containe-fluidr" style="background-color: white;margin:5px 0;border: rgba(0,0,0,.125) solid 1px; "/>');
-								
-								var div11 = $('<div style="padding: 20px 0 0 20px;"/>');
-								div11.appendTo(div1);
-								var span1_div11 = $('<span/>');
-								span1_div11.appendTo(div11);
-								span1_div11.html(this.msgTitle);
-								
-								
-								var span2_div11 = $('<span style="margin-left: 10px;color: #CFCFCF;"/>');
-								span2_div11.appendTo(div11);
-								span2_div11.html(this.msgSendDate);
-								
-								var div12 = $('<div style="padding: 6px 0 16px 20px;text-indent:2em;"/>');
-								div12.appendTo(div1);
-								var span1_div12 = $('<span/>');
-								span1_div12.appendTo(div12);
-								span1_div12.html(this.msgContext);
-								
-								var span2_div12 = $('<span/>');
-								span2_div12.appendTo(div12);
-								
-								var a_span2_div12 =$('<a/>')
-								a_span2_div12.appendTo(span2_div12);
-								a_span2_div12.html("查看详情>>");
-								
-								div1.appendTo("#"+showpage_id);
-							});
-						}
-					})
-				}
-			</script>
 	</body>
 
 </html>

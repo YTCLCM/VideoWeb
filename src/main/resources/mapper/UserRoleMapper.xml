@@ -9,4 +9,17 @@
  	<select id="selectOneByUserRoleId" parameterType="Integer" resultType="com.liucm.bean.UserRole">
  		select * from tb_role where role_id = #{roleId};
  	</select>
+ 	
+ 	<select id="selectOneByRoleName" parameterType="String" resultType="com.liucm.bean.UserRole">
+ 		select * from tb_role where user_role = #{roleName};
+ 	</select>
+ 	
+ 	<delete id="deleteOne" parameterType="int">
+ 		delete from tb_role where role_id=#{roleId};
+ 	</delete>
+ 	
+ 	<insert id="addUserRole" parameterType="String" useGeneratedKeys="true">
+ 		insert into tb_role(`user_role`)
+ 		values(#{userRoleName});
+ 	</insert>
 </mapper>

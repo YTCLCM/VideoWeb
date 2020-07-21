@@ -1,10 +1,8 @@
 package com.liucm.bean;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties
 public class MsgType {
 	private int msgTypeId;
 	private String msgTypeName;

@@ -1,0 +1,678 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>后台系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/icons/icon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/skin.css">
+<link rel="stylesheet" type="text/css" href="/css/xcConfirm.css" />
+
+<!-- 导航条 -->
+<link rel="stylesheet" href="/css/menu.css" />
+
+<link href="/css/style2.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/css/adminmanage.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+
+<body>
+
+	<div class="container-fluid row" style=" padding: 0; margin: 0;">
+		<div class="container nav-list col-lg-2 admindiv">
+			<div class="adminIcon" style="background-color: #003b64;">
+				<h4>后台管理系统</h4>
+				<img class="adminimg" src="/img/ddd.png" style="" />
+			</div>
+
+			<div class="adminname" style="text-align: center;">
+				<h5 th:text="'管理员: '+${session.user.userName}"></h5>
+				<h6 th:text="${#dates.format(session.user.registerDate,'yyyy-MM-dd HH:mm:ss')}">2010-08-08</h6>
+				
+				
+			</div>
+
+			<nav class="navbar navbar-default w3_megamenu" role="navigation" style="margin-bottom: 2px;">
+				<div class="navbar-header">
+					<button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle newnavbar" style="color:red;">
+						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+					<a href="index.html" class="navbar-brand"><i class="fa fa-home"></i></a>
+
+				</div>
+				<!-- end navbar-header -->
+
+				<div id="defaultmenu" class="navbar-collapse collapse">
+					<!-- 侧边栏标签页 -->
+					<ul class="nav nav-pills nav-stacked">
+
+						<!-- 侧边栏选项 -->
+						<li role="presentation" class="active">
+							<!-- 选项控制data-target对应的显隐 --> <a id="userManageButton" href="#" data-toggle="collapse" data-target="#list1">用户管理</a> <!-- 隐藏的详细菜单 -->
+							<ul id="list1" class="collapse in">
+								<li><a href="#" id="addUserButton" data-toggle="modal" data-target="#addUser"><span class="glyphicon glyphicon-plus"></span>用户新增</a></li>
+								<li><a href="#" id="updateUserButton"><span class="glyphicon glyphicon-pencil"></span>用户修改</a></li>
+								<li><a href="#" id="delUserButton"><span class="glyphicon glyphicon-trash"></span>用户删除</a></li>
+							</ul>
+						</li>
+						<li role="presentation" class="active">
+							<!-- 选项控制data-target对应的显隐 --> <a id="videoManageButton" href="#" data-toggle="collapse" data-target="#list2">视频管理</a> <!-- 隐藏的详细菜单 -->
+							<ul id="list2" class="collapse">
+								<li><a href="#" id="verifyVideoButton"><span class="glyphicon glyphicon-play-circle"></span>视频审核</a></li>
+								<li><a href="#" id="delVideoButton"><span class="glyphicon glyphicon-trash"></span>视频删除</a></li>
+							</ul>
+						</li>
+						<li role="presentation" class="active">
+							<!-- 选项控制data-target对应的显隐 --> <a id="roleManageButton" href="#" data-toggle="collapse" data-target="#list3">角色管理</a> <!-- 隐藏的详细菜单 -->
+							<ul id="list3" class="collapse">
+								<li><a href="#" id="addRoleButton" data-toggle="modal" data-target="#addRole"><span class="glyphicon glyphicon-plus"></span>角色新增</a></li>
+								<li><a href="#" id="delRoleButton"><span class="glyphicon glyphicon-trash"></span>角色删除</a></li>
+							</ul>
+						</li>
+						<li role="presentation" class="active">
+							<!-- 选项控制data-target对应的显隐 --> <a id="videoTypeManageButton" href="#" data-toggle="collapse" data-target="#list4">类型管理</a> <!-- 隐藏的详细菜单 -->
+							<ul id="list4" class="collapse">
+								<li><a href="#" id="addVideoTypeButton" data-toggle="modal" data-target="#addVideoType"><span class="glyphicon glyphicon-plus"></span>类型新增</a></li>
+								<li><a href="#" id="delVideoTypeButton"><span class="glyphicon glyphicon-trash"></span>类型删除</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- end #navbar-collapse-1 -->
+
+			</nav>
+		</div>
+		<!--
+            	作者：2539829814@qq.com
+            	时间：2020-03-22
+            	描述：用户管理页
+            -->
+		<div id="userManagePage" class="table-responsive col-lg-10" >
+			<table class="table">
+				<caption>用户页</caption>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>名称</th>
+						<th>年龄</th>
+						<th>性别</th>
+						<th>邮箱</th>
+						<th>手机号</th>
+						<th>地址</th>
+						<th>角色</th>
+						<th>注册时间</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="userTable">
+					
+				</tbody>
+
+			</table>
+			<div class="userPaginationPosition" style="text-align: center;">
+				
+			</div>
+		</div>
+
+		<!--
+            	作者：2539829814@qq.com
+            	时间：2020-03-22
+            	描述：视频管理页
+            -->
+		<div id="videoManagePage" class="table-responsive col-lg-10">
+			<table class="table">
+				<caption>视频页</caption>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>标题</th>
+						<th>描述</th>
+						<th>类型</th>
+						<th>日期</th>
+						<th>用户</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="videoTable" id="tbody">
+					
+				</tbody>
+
+			</table>
+			<div class="videoPaginationPosition" style="text-align: center;">
+			
+			</div>
+		</div>
+
+		<!--
+            	作者：2539829814@qq.com
+            	时间：2020-03-22
+            	描述：角色管理页
+            -->
+		<div id="roleManagePage" class="table-responsive col-lg-10">
+			<table class="table">
+				<caption>用户角色页</caption>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>角色名</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="roleTable">
+
+				</tbody>
+
+			</table>
+
+		</div>
+
+		<!--
+            	作者：2539829814@qq.com
+            	时间：2020-03-22
+            	描述：视频类型管理页
+            -->
+		<div id="videoTypeManagePage" class="table-responsive col-lg-10" >
+			<table class="table">
+				<caption>视频类型页</caption>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>类型名</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="videoTypeTable">
+
+				</tbody>
+
+			</table>
+
+		</div>
+	</div>
+
+
+
+	<!--修改模态框 出现的位置-->
+	<style  type="text/css">
+.modal.fade.in {
+	margin: 0 auto;
+}
+</style>
+
+	<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">添加用户</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addUserForm" class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">用户名称</label>
+							<div class="col-sm-10">
+								<input type="text" name="userName" class="form-control" placeholder="用户名称">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">QQ邮箱</label>
+							<div class="col-sm-10">
+								<input type="text" name="userMail" class="form-control" placeholder="请输入QQ邮箱">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-10">
+								<input type="text" name="password" class="form-control" placeholder="请输入密码">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">角色</label>
+							<div class="col-sm-10">
+								<input type="text" name="userRole" class="form-control" placeholder="请输入角色">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-10">
+								<input type="text" name="stateName" class="form-control" placeholder="请输入状态">
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="addUserFormButton">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">更新用户</h4>
+				</div>
+				<div class="modal-body">
+					<form id="userInfoUpdateForm" class="form-horizontal" role="form">
+						<input type="hidden" id="userUpdateId" name="userId" class="form-control" placeholder="角色名称">
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">用户名称</label>
+							<div class="col-sm-10">
+								<input type="text" id="userName" disabled="disabled" class="form-control" placeholder="用户名称">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">用户年龄</label>
+							<div class="col-sm-10">
+								<input type="text" id="userAge" name="userAge" class="form-control" placeholder="请输入用户年龄">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">用户性别</label>
+							<div class="col-sm-10">
+								<input type="text" id="userSex" name="userSex"  class="form-control" placeholder="请输入用户性别">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">QQ邮箱</label>
+							<div class="col-sm-10">
+								<input type="text" id="userMail" name="userMail"  class="form-control" placeholder="请输入QQ邮箱">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">手机号码</label>
+							<div class="col-sm-10">
+								<input type="text" id="userPhone" name="userPhone"  class="form-control" placeholder="请输入手机号码">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">家庭住址</label>
+							<div class="col-sm-10">
+								<input type="text" id="userAddress" name="userAddress"  class="form-control" placeholder="请输入家庭住址">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">注册时间</label>
+							<div class="col-sm-10">
+								<input type="text" id="registerDate" class="form-control" disabled="disabled" placeholder="请输入家庭住址">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">角色</label>
+							<div class="col-sm-10">
+								<input type="text" id="userRole" name="userRole"  class="form-control" placeholder="请输入家庭住址">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-10">
+								<input type="text" id="state" name="stateName" class="form-control" placeholder="请输入家庭住址">
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="userUpdateButton">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal fade" id="delUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">删除用户</h4>
+				</div>
+				<div class="modal-body" >
+					是否确认删除该用户吗？
+					<form id="delUserForm" action="#" class="form-horizontal" role="form">
+						<div class="form-group">						
+							<div class="col-sm-10">
+								<input type="hidden" id="userId" name="userId" class="form-control" placeholder="角色名称">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="delUserSubmit">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	
+	
+	<div class="modal fade" id="verifyVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">视频认证</h4>
+				</div>
+				<div class="modal-body" >
+					<form id="verifyVideoForm" class="form-horizontal" role="form">		
+						<input type="hidden" id="verifyVideoId1" name="videoId"  class="form-control" placeholder="角色名称">			
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">视频ID</label>
+							<div class="col-sm-10">
+								<input type="text" id="verifyVideoId2" disabled="disabled"  class="form-control" placeholder="角色名称">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">视频状态</label>
+							<div class="col-sm-10">
+								<select class="form-control" name="stateId">
+									<option value="1">待审核</option>
+								    <option value="2">审核成功</option>
+								    <option value="3">审核失败</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">审核描述</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" style="resize:none;" name="verifyText" rows="5"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="verifyVideoSubmit">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	
+	<div class="modal fade" id="delVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">删除视频</h4>
+				</div>
+				<div class="modal-body" >
+					是否确认删除该条视频吗？
+					<form id="delVideoForm" action="#" class="form-horizontal" role="form">
+						<div class="form-group">						
+							<div class="col-sm-10">
+								<input type="hidden" id="videoId" name="videoId" class="form-control" placeholder="角色名称">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="delVideoSubmit">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div class="modal fade" id="delRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">删除角色</h4>
+				</div>
+				<div class="modal-body" >
+					是否确认删除该条角色吗？
+					<form id="delRoleForm" action="#" class="form-horizontal" role="form">
+						<div class="form-group">						
+							<div class="col-sm-10">
+								<input type="hidden" id="roleId" name="roleId" class="form-control" placeholder="角色名称">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="delRoleSubmit">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div class="modal fade" id="delVideoType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">删除类型</h4>
+				</div>
+				<div class="modal-body" >
+					是否确认删除该条类型吗？
+					<form id="delVideoTypeForm" action="#" class="form-horizontal" role="form">
+						<div class="form-group">						
+							<div class="col-sm-10">
+								<input type="hidden" id="videoTypeId" name="videoTypeId" class="form-control" placeholder="角色名称">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="delVideoTypeSubmit">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">添加角色</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addRoleFrom" action="#" class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">角色名称</label>
+							<div class="col-sm-10">
+								<input type="text" name="userRoleName" class="form-control" placeholder="角色名称">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="addRoleSubmit">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal fade" id="addVideoType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">添加类型</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addVideoTypeForm" action="#" class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">类型名称</label>
+							<div class="col-sm-10">
+								<input type="text" name="videoTypeName" class="form-control" placeholder="请输入视频类型名称">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="addVideoTypeSubmit">提交更改</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div class="modal fade" id="videoPlay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close"  id="closevideo2" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">视频播放</h4>
+				</div>
+				<div class="modal-body videoplay"   >	
+					<div id="videoplaydiv" class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167" style="width:100%; display: block;">
+				    	
+					</div>	
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closevideo">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	
+	<script src="/js/jquery.min.js"></script>
+
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/flowplayer.min.js"></script>
+	
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/adminmanage.js"></script>
+	<script type="text/javascript" src="/js/Pagination.js"></script>
+	<script src="/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script>
+		$(function() {
+			var a = $(".adminimg").width();
+			$('.adminimg').css('height', a);
+			$(window).resize(function() { // 当浏览器大小变化时
+				a = $(".adminimg").width();
+				$('.adminimg').css('height', a);
+			});
+		});
+		
+		
+		//控制各个窗口的切换
+		$('#updateUserButton').click(function() {
+			$(".delUser").attr("disabled", "disabled");
+			$(".updateUser").removeAttr("disabled");
+		});
+		$('#delUserButton').click(function() {
+			$(".updateUser").attr("disabled", "disabled");
+			$(".delUser").removeAttr("disabled");
+		});
+		$('#addUserButton').click(function() {
+			$(".updateUser").attr("disabled", "disabled");
+			$(".delUser").attr("disabled", "disabled");
+		});
+
+		$('#updateVideoButton').click(function() {
+			$(".verifyVideo").attr("disabled", "disabled");
+			$(".delVideo").attr("disabled", "disabled");
+			$(".updateVideo").removeAttr("disabled");
+		});
+		$('#delVideoButton').click(function() {
+			$(".verifyVideo").attr("disabled", "disabled");
+			$(".updateVideo").attr("disabled", "disabled");
+			$(".delVideo").removeAttr("disabled");
+		});
+		$('#verifyVideoButton').click(function() {
+			$(".updateVideo").attr("disabled", "disabled");
+			$(".delVideo").attr("disabled", "disabled");
+			$(".verifyVideo").removeAttr("disabled");
+		});
+
+		$('#delRoleButton').click(function() {
+			$(".delRole").removeAttr("disabled");
+		});
+		$('#addRoleButton').click(function() {
+			$(".delRole").attr("disabled", "disabled");
+		});
+
+		$('#delVideoTypeButton').click(function() {
+			$(".delVideoType").removeAttr("disabled");
+		});
+		$('#addVideoTypeButton').click(function() {
+			$(".delVideoType").attr("disabled", "disabled");
+		});
+
+		$('#userManagePage').show();
+		$("#videoManagePage").hide();
+		$("#roleManagePage").hide();
+		$("#videoTypeManagePage").hide();
+
+		$('#userManageButton,#updateUserButton,#addUserButton,#delUserButton').click(function() {
+			$('#userManagePage').show();
+			$("#videoManagePage").hide();
+			$("#roleManagePage").hide();
+			$("#videoTypeManagePage").hide();
+		});
+
+		$('#videoManageButton,#verifyVideoButton,#updateVideoButton,#delVideoButton').click(function() {
+			$('#videoManagePage').show();
+			$("#userManagePage").hide();
+			$("#roleManagePage").hide();
+			$("#videoTypeManagePage").hide();
+
+		});
+
+		$('#roleManageButton,#addRoleButton,#delRoleButton').click(function() {
+			$('#roleManagePage').show();
+			$("#videoManagePage").hide();
+			$("#userManagePage").hide();
+			$("#videoTypeManagePage").hide();
+
+		});
+
+		$('#videoTypeManageButton,#addVideoTypeButton,#delVideoTypeButton').click(function() {
+			$('#videoTypeManagePage').show();
+			$("#videoManagePage").hide();
+			$("#roleManagePage").hide();
+			$("#userManagePage").hide();
+
+		});
+		
+	</script>
+</body>
+
+</html>

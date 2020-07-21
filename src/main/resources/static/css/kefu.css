@@ -1,0 +1,118 @@
+
+
+html {
+	overflow-x: hidden
+}
+
+a:focus {
+	outline: 0
+}
+
+a:active {
+	outline: 0
+}
+
+
+a {
+	outline: 0
+}
+
+img {
+	border: 0
+}
+
+
+
+.clear {
+	clear: both;
+	height: 0;
+	line-height: 0;
+	font-size: 0;
+	margin: 0;
+	padding: 0;
+	border: 0
+}
+
+.ellipsis {
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden
+}
+
+.timeS {
+	font-size: 12px;
+	margin-bottom: 5px
+}
+
+.serviceBox {
+	width: 170px;
+	height: 280px;
+	position: absolute;
+	top: 250px;
+	z-index: 100;
+	background: url(../img/kefuda.png?v=201406231722) -275px 0 no-repeat
+}
+
+.serviceBox .serviceTitle {
+	position: absolute;
+	top: 72px;
+	right: 20px;
+	width: 90px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	color: #013684;
+	text-decoration: none
+}
+
+.serviceBox .serviceTitle:hover {
+	color: #f30
+}
+
+.serviceBox .serviceText {
+	position: absolute;
+	top: 105px;
+	right: 0;
+	width: 130px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #013684;
+	cursor: pointer;
+	font-size: 14px
+}
+
+.serviceBox .oemServiceTitle {
+	position: absolute;
+	top: 212px;
+	right: 20px;
+	width: 90px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	color: #013684;
+	text-decoration: none
+}
+
+.serviceBox .oemServiceTitle:hover {
+	color: #f30
+}
+
+.serviceBox .oemServiceText {
+	position: absolute;
+	top: 244px;
+	right: 0;
+	width: 130px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	cursor: pointer;
+	font-size: 14px
+}

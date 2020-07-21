@@ -2,11 +2,9 @@ package com.liucm.bean;
 
 import java.io.Serializable;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties
 public class Focus implements Serializable{
 
 	private static final long serialVersionUID = 2333832277086203824L;

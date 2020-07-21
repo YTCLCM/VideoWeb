@@ -3,72 +3,41 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>用户信息</title>
-		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="/icons/icon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/css/xcConfirm.css"/>
+
+		<!-- <link rel="stylesheet" href="/css/index.css" type="text/css" /> -->
+	
+		<!-- icon图标 -->
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
+		<!-- 导航条 -->
+		<link rel="stylesheet" href="/css/menu.css" />
+		<link href="/css/style2.css" rel="stylesheet" type="text/css" media="all" />
+
 	</head>
 	<body>
 		
 		
 		<div class="container" style="padding: 0; background-color: EBEBEB;">
 			
-			<div class="container-fluid" style="margin-bottom: 4px;padding: 0;">
-				<div class="container-fluid row">
-
-					<!--
-                	作者：2539829814@qq.com
-                	时间：2019-12-30
-                	描述：巨幕
-                -->
-					<div class="col-lg-3" style="height: auto; ">
-						<h1>用户信息页</h1>
-						<p>欢迎来到本视频网站。在这，你将发现更多美。</p>
-						<p>
-							<a class="btn btn-info btn-1g" href="http://www.baidu.com" role="button">Learn More</a>
-						</p>
+			<div class="container-fluid main-content" style="margin-bottom: 4px;padding: 0;">
+				<div class="header">
+					<div class="logo">
+						<img th:src="${session.user.iconUrl}" style="float: left; padding:0;margin-right:15px; width: 45px; height: 45px; border-radius: 50%;" /> <a href="#" style="float: left;">
+							<h1>个人中心</h1>
+						</a>
 					</div>
-
-					<!--
-                	作者：2539829814@qq.com
-                	时间：2019-12-30
-                	描述：轮播图
-                	图片要求：800*200的图片大小
-                -->
-					<div class="container col-lg-8 col-lg-offset-1 lunbotu" style="height: 200px;padding: 0;">
-						<div id="myCarousel" class="carousel slide" style="">
-							<!-- 轮播（Carousel）指标 -->
-							<ol class="carousel-indicators">
-								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-								<li data-target="#myCarousel" data-slide-to="1"></li>
-								<li data-target="#myCarousel" data-slide-to="2"></li>
-							</ol>
-							<!-- 轮播（Carousel）项目 -->
-							<div class="carousel-inner" style="width: 100%; height: 200px;">
-								<div class="item active" align="center" style="width: 100%; height: 200px;">
-									<img src="/img/ad001.jpg" alt="First slide" style="width: 100%; height: 100%;">
-									<div class="carousel-caption">尽情期待</div>
-								</div>
-								<div class="item" align="center" style="width: 100%; height: 200px;">
-									<img src="/img/ad002.jpg" alt="Second slide" style="width: 100%; height: 100%;">
-									<div class="carousel-caption">诚邀加盟</div>
-								</div>
-								<div class="item" align="center" style="width: 100%; height: 200px;">
-									<img src="/img/ad003.jpg" alt="Third slide" style="width: 100%; height: 100%;">
-									<div class="carousel-caption">先到先得</div>
-								</div>
-							</div>
-							<!-- 轮播（Carousel）导航 -->
-							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								<span class="sr-only">Previous</span>
-							</a>
-							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-								<span class="sr-only">Next</span>
-							</a>
+					<div class="search">
+						<div class="search2">
+							<form>
+								<i class="fa fa-search"></i> <input type="text" value="Search for a movie" onFocus="this.value = '';"
+									onBlur="if (this.value == '') {this.value = 'Search for a movie, play, event, sport or more';}" />
+							</form>
 						</div>
-
 					</div>
-				</div>
+				<div class="clearfix"></div>
 			</div>
 			
 			<!--
@@ -76,20 +45,19 @@
         	时间：2019-12-30
         	描述：网站导航条
        -->
-			<nav class="navbar navbar-default navbar-inverse" style="margin:0 0 4px 0;">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-			            	<span class="sr-only">Toggle navigation</span>
-			             	<span class="icon-bar"></span>
-			             	<span class="icon-bar"></span>
-			             	<span class="icon-bar"></span>
-			            </button>
+       <div class="bootstrap_container">
+					<nav class="navbar navbar-default w3_megamenu" role="navigation">
+						<div class="navbar-header">
+							<button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle">
+								<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+							</button>
+							<a href="#" class="navbar-brand"><i class="fa fa-home"></i></a>
 
-						<img class="navbar-brand"  th:src="${session.user.iconUrl}" style="width:50px; height:50px; margin-left: 5px;border-radius:50%;" />
-					</div>						 
-					<div id="navbar" class="navbar-collapse collapse">
-						<ul class="nav navbar-nav mytab">
+						</div>
+						<!-- end navbar-header -->
+
+						<div id="defaultmenu" class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
 							<li data-toggle="tab" class="active">
 								<a id="userInfoButton" href="#">个人信息</a>
 							</li>
@@ -133,11 +101,9 @@
 							</li>
 						</ul>
 					</div>
-					<!--/.nav-collapse -->
-				</div>
 				<!--/.container-fluid -->
 			</nav>
-			
+		</div>
 			
 			<!--
             	作者：2539829814@qq.com
@@ -214,7 +180,7 @@
 				<div class="form-group">
 					<label class="col-sm-1 control-label">注册时间</label>
 					<div class="col-sm-11">
-						<p class="form-control-static" th:text="${session.user.registerDate}"></p>
+						<p class="form-control-static" th:text="${#dates.format(session.user.registerDate,'yyyy:MM:dd hh:mm:ss')}"></p>
 					</div>
 				</div>
 				
@@ -246,7 +212,7 @@
 				<div class="form-group">
 					<label for="firstname" class="col-sm-1 control-label">用户名称</label>
 					<div class="col-sm-11">
-						<input type="text" name="userName" th:value="${session.user.userName}" class="form-control" disabled="disabled" placeholder="用户名称">
+						<input type="text" name="userName" autocomplete="off" th:value="${session.user.userName}" class="form-control" disabled="disabled" placeholder="用户名称">
 					</div>
 				</div>
 				<div class="form-group">
@@ -278,11 +244,19 @@
 					<label for="lastname" class="col-sm-1 control-label">用户性别</label>
 					<div class="col-sm-11">
 						<select class="form-control" name="userSex">
-							<option th:text="${session.user.userSex}"></option>
-							<span th:if="${session.user.userSex}=='男'">
-								<option>女</option>
+						
+							<span th:if="${session.user.userSex}!=''">
+								<option th:text="${session.user.userSex}"></option>
+								<span th:if="${session.user.userSex}=='男'">
+									<option>女</option>
+								</span>
+								<span th:if="${session.user.userSex}=='女'">
+									<option>男</option>
+								</span>
 							</span>
-							<span th:if="${session.user.userSex}=='女'">
+							
+							<span th:if="${session.user.userSex}==''">
+								<option>女</option>
 								<option>男</option>
 							</span>
 						</select>
@@ -292,21 +266,21 @@
 				<div class="form-group">
 					<label for="lastname" class="col-sm-1 control-label">QQ邮箱</label>
 					<div class="col-sm-11">
-						<input type="text" name="userMail" th:value="${session.user.userMail}" class="form-control" placeholder="请输入QQ邮箱">
+						<input type="email" autocomplete="off" name="userMail" th:value="${session.user.userMail}" class="form-control" placeholder="请输入QQ邮箱">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="lastname" class="col-sm-1 control-label">手机号码</label>
 					<div class="col-sm-11">
-						<input type="text" name="userPhone" th:value="${session.user.userPhone}" class="form-control" placeholder="请输入手机号码">
+						<input type="text" autocomplete="off" name="userPhone" th:value="${session.user.userPhone}" class="form-control" placeholder="请输入手机号码">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="lastname" class="col-sm-1 control-label">家庭住址</label>
 					<div class="col-sm-11">
-						<input type="text" name="userAddress" th:value="${session.user.userAddress}" class="form-control" placeholder="请输入家庭住址">
+						<input type="text" autocomplete="off" name="userAddress" th:value="${session.user.userAddress}" class="form-control" placeholder="请输入家庭住址">
 					</div>
 				</div>
 				
@@ -378,6 +352,10 @@
 			</form>
 			
 			<div class="container" id="forgetPassword"><h1>密码将会发送到你的QQ邮箱，请注意查收。</h1></div>
+			
+			
+			</div>
+			
 		</div>
 		
 		
@@ -386,6 +364,8 @@
 		<script src="/js/flowplayer.min.js"></script>
 
 		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/home.js"></script>
 		<script language="JavaScript">
 		
 			$('#reload').click(
@@ -482,10 +462,10 @@
 									async:true,
 									dataType:"JSON",
 									error:function(data){
-										alert("密码发送失败");
+										window.wxc.xcConfirm("密码发送失败", window.wxc.xcConfirm.typeEnum.error);
 									},
 								  	success:function(data){
-								  		alert("密码已发送到邮箱");	
+								  		window.wxc.xcConfirm("密码已发送到邮箱", window.wxc.xcConfirm.typeEnum.success);
 									}//success:function
 								});//ajax									
 							},
@@ -502,16 +482,16 @@
 						url:"/UserController/passwordUpdate",
 						async:true,
 						data: $('#passwordUpdate').serialize(),
-						dataType:"text",
+						dataType:"JSON",
 						contentType: "application/x-www-form-urlencoded; charset=utf-8",
 						error:function(data){
-							alert("密码修改失败");
+				  			window.wxc.xcConfirm("密码修改失败", window.wxc.xcConfirm.typeEnum.error);
 						},
-					  	success:function(data){  
-					  		if(data =='success'){
-					  			alert("密码修改成功");
+					  	success:function(result){  			  		
+					  		if(result.message =='密码修改成功'){
+					  			window.wxc.xcConfirm(result.message, window.wxc.xcConfirm.typeEnum.success);
 					  		}	else{
-					  			alert("密码修改失败");
+					  			window.wxc.xcConfirm(result.message, window.wxc.xcConfirm.typeEnum.error);
 					  		}
 						}//success:function
 					});//ajax

@@ -3,11 +3,25 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liucm.dao.MsgMapper">
 	
+	<delete id="deleteMessage">
+		delete from tb_message
+		where msg_id = #{msgId};
+	</delete>
 	<update id="updateMsgState" >
 		update tb_message
 		set msg_state_id = #{stateId}
 		where msg_id = #{msgId};
 	</update>
+	
+	<select id="selectMessage" resultMap="msgresult">
+		select * from tb_message
+		where msg_id = #{msgId};
+	</select>
+	
+	<select id="selectMsgSum" resultType="int" parameterType="int">
+		select count(*) from tb_message
+		where msg_receive_user_id = #{userId} and msg_state_id = 6;
+	</select>
 	
 	<select id="selectMsgByMsgType" resultMap="msgresult">
 		select * from tb_message

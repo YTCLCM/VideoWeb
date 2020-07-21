@@ -3,15 +3,17 @@
 
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>视频网站</title>
-		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/icons/icon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/css/index.css" />
 		<link rel="stylesheet" href="/css/skin.css">
 		<link href="/css/navbar.css" rel="stylesheet">
-	
+		<link rel="stylesheet" type="text/css" href="/css/xcConfirm.css"/>
+		<link href="/css/kefu.css" rel="stylesheet" type="text/css" />
+		
+		
 		<style type="text/css">
 			img{
 				cursor: pointer;
@@ -22,11 +24,31 @@
 			}
 			a{
 				cursor:pointer;
-                text-align: center;
                 text-decoration: none;
             }
             a:link,a:visited{
 			 	text-decoration:none;  /*超链接无下划线*/
+			}
+		</style>
+		<style type="text/css">
+			.mydiv:hover{
+			   width:100%;
+			
+			   height:100%;
+			
+			   border:rgba(0,0,0,.125) 1px solid;
+			
+			   background:#fff;
+			
+			   color:#333;
+			
+			   filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0,0,0,.125),direction=120,strength=4);
+			
+			   -moz-box-shadow: 2px 2px 10px rgba(0,0,0,.125);
+			
+			   -webkit-box-shadow: 2px 2px 10px rgba(0,0,0,.125);
+			
+			    box-shadow:2px 2px 10px rgba(0,0,0,.125);
 			}
 		</style>
 	</head>
@@ -148,8 +170,8 @@
 							<li  data-toggle="tab">
 								<form action="#" method="get">
 									<div class="form-group" style="display: flex;flex-direction: row;">
-										<input type="text" style="width: 200px;" name="searchcontent" class="form-control" placeholder="输入内容" />
-										<button type="submit" class="btn btn-default" style="margin-left: 10px;">搜索</button>
+										<input type="text" style="width: 200px;" name="searchcontent" autocomplete="off" class="form-control" placeholder="输入内容" />
+										<button type="submit" class="btn btn-default"  style="margin-left: 10px;">搜索</button>
 									</div>
 								</form>
 							</li>
@@ -252,8 +274,21 @@
 		<script src="/js/bootstrap.min.js"></script>
 		<script src="/js/carousel.js"></script>
 		<script src="/js/lunbotu.js"></script>
+		
+		<script src="/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/service.js"></script>
 
 		<script language="JavaScript">
+			
+			$(function(){
+	            var a = $(".videodiv").width();
+	            $('.videodiv').css('height',a*0.57);
+	        });
+			$(window).resize(function () {          //当浏览器大小变化时
+				 var a = $(".videodiv").width();
+		         $('.videodiv').css('height',a*0.57);
+			});
+			
 			$(".mytab a").click(function(e) {
 				e.preventDefault();
 				$(this).tab("show");
@@ -293,14 +328,14 @@
 				  	success:function(data){
 				  		//alert("成功");
 				  		 $.each(data, function(i,val){
-				  			 var div1 = $('<div class="col-lg-6" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: 200px;" />'); 
+				  			 var div1 = $('<div class=" col-lg-6" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: auto;" />'); 
 				  			
 				  			 var div2 = $('<div class="container-fluid" />');
 				  			 div2.appendTo(div1);
-				  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
+				  			 var div31 = $('<div class="container-fluid col-lg-12 videodiv" style="border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
 				  			 div31.appendTo(div2);
 				  			
-				  			 var div32 = $('<div class="container-fluid col-lg-12" style="width: 100%; margin-top: 2px;padding-left: 6px; position: relative;left:;top: -55px;color: white;display: inline-block; opacity: 0.7;background: #000;" />');
+				  			 var div32 = $('<div class="container-fluid col-lg-12 titlediv " style="width: 100%;margin:0;padding:0;margin-top:-50px; color: white;display: inline-block; opacity: 0.7;background: #000;" />');
 				  			 div32.appendTo(div2);
 				  			
 				  			 var div4 = $('<div class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 100%; display: block;" />');
@@ -394,14 +429,14 @@
 							  		if(data != null && data !=""){
 							  			timer = null;
 							  			 $.each(data, function(i,val){
-								  			 var div1 = $('<div class="col-lg-6" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: 200px;" />'); 
-								  			
-								  			 var div2 = $('<div class="container-fluid " />');
+							  				 var div1 = $('<div class=" col-lg-6" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: auto;" />'); 
+									  			
+								  			 var div2 = $('<div class="container-fluid" />');
 								  			 div2.appendTo(div1);
-								  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
+								  			 var div31 = $('<div class="container-fluid col-lg-12 videodiv" style="border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
 								  			 div31.appendTo(div2);
 								  			
-								  			 var div32 = $('<div class="container-fluid col-lg-12" style="width: 100%; margin-top: 2px;padding-left: 6px; position: relative;left:;top: -55px;color: white;display: inline-block; opacity: 0.5;background: #000;" />');
+								  			 var div32 = $('<div class="container-fluid col-lg-12 titlediv " style="width: 100%;margin:0;padding:0;margin-top:-50px; color: white;display: inline-block; opacity: 0.7;background: #000;" />');
 								  			 div32.appendTo(div2);
 								  			
 								  			 var div4 = $('<div class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 100%; display: block;" />');
@@ -410,11 +445,11 @@
 								  			 var img = $('<img class="videoplay"  style="width: 100%;height: 100%;" />');
 								  			 img.appendTo(div4);
 								  			 img.attr("src",this.thumbnailUrl);
-								  			 
+								  			
 								  			 var img2 = $('<img style="height: 50px;width: 50px;float: left;border-radius:50%;margin-right: 4px;"/>');
 								  			 img2.appendTo(div32);
 								  			 img2.attr("src",this.user.iconUrl);
-								  			
+								  			 
 								  			 var h3 = $('<h3 style="margin-top: 0;margin-bottom: 2px;" />');
 								  			 h3.html("["+this.videoTitle+"]").appendTo(div32);
 								  			

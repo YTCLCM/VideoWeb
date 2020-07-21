@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="info" strict="true" name="LogConfig">
+    <Properties>
+        <Property name="filePath">D:/videoweb/logs</Property>
+        <Property name="projectName">videoweb</Property>
+        <Property name="fileName">/record</Property>
+    </Properties>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %t %l %m%n</Pattern>
+            </PatternLayout>
+        </Console>
+        <RollingFile name="logService"
+                     fileName="${filePath}/${projectName}/${fileName}.log"
+                     filePattern="${filePath}/${projectName}/${fileName}-%d{yyyyMMddHH}.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %p %t %F:%L %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <CronTriggeringPolicy schedule="0 0 0/1 * * ? *" evaluateOnStartup="true"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="fileLogger" level="info" additivity="false">
+            <AppenderRef ref="logService"/>
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="logService"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

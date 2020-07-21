@@ -5,20 +5,19 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>视频播放</title>
-		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/icons/icon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/css/index.css" />
 		<link rel="stylesheet" href="/css/skin.css">
 		<link href="/css/cover.css" rel="stylesheet">
+		<link href="/css/style2.css" rel="stylesheet" type="text/css" media="all" />
+		<link rel="stylesheet" type="text/css" href="/css/xcConfirm.css"/>
+		
 		<style type="text/css">
-			* {
-				margin: 0;
-				padding: 0;
-				border: 0;
-			}
+			
 			
 			.websitecolor {
-				background-color: #EBEBEB;
+				background-color: #fff;
 			}
 			img{
 				cursor: pointer;
@@ -38,17 +37,27 @@
 			}
 			
 			.barrage-txt {
-				width: 80%;
+				min-width:75%;
 				height:100%;
 				margin-top:4px;
 				background-color: white;
 			}
 			
 			.barrage-send {
-				width: 15%;
 				height:100%;
 				
 				cursor: pointer;
+			}
+			.mybtn:hover{
+				background-color: #c2d8ef;
+			}
+			
+		</style>
+		<!--修改模态框 出现的位置-->
+		<style  type="text/css">
+			.modal.fade.in {
+				top:200px;
+				margin: 0 auto;
 			}
 		</style>
 	</head>
@@ -58,9 +67,9 @@
 		<div class="container websitecolor" style="margin：0;padding: 0;border: 1px solid black;">
 
 			<div class="container row">
-				<div class="col-lg-3" style="display: flex;flex-direction:row;margin-top: 10px;">
-					<img th:src="${session.curVideo.user.iconUrl}" style="width:60px; height:60px; border-radius:50%;margin-left: 10px;" />
-					<div style="display: flex;flex-direction:column;margin-top: 4px;padding-left: 20px;">
+				<div class="col-sm-3" style="display: flex;flex-direction:row;margin-top: 10px;float: left;">
+					<img th:src="${session.curVideo.user.iconUrl}" style="width:60px; height:60px; border-radius:50%;margin-left: 6px;" />
+					<div style="display: flex;flex-direction:column;margin-top: 4px;padding-left: 10px;">
 						<div style="font-size: 18px;" th:text="${session.curVideo.user.userName}"></div>
 						
 						<!-- 用于标记当前用户观看视频上传者的ID -->
@@ -68,33 +77,22 @@
 						
 						<!-- 访问用户的id -->
 						<input type="hidden" id="userId" th:value="${session.user.userId}">
-						<div style="display: flex;flex-direction:row;">
+						<div style="display: flex;flex-direction:row;width:auto;">
 							<div style="margin-top: 8px;" th:text="${session.curVideo.user.fanNum}"></div>
-							<div style="margin-left: 8px;margin-top: 8px;" >粉丝数</div>
+							<div style="width:100px; margin-left: 8px;margin-top: 8px;" >粉丝数</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="col-lg-1  col-lg-offset-6" style="text-align: center;">
-					<div class="col-lg-12" style="height: 30px;margin-top: 20px;">
-						<button type="button" id="focuson" class="btn btn-default btn-sm" title="关注">
-         					<span class="focusClass glyphicon glyphicon-plus"></span> <span class="focusvalue">关注</span>
-     				   </button>
-					</div>
-				</div>
-				<div class="col-lg-1" style="text-align: center;">
-					<div class="col-lg-12" style="height: 30px;margin-top: 20px;">
-						<button type="button" class="btn btn-default btn-sm" title="私信">
-         					<span class="glyphicon glyphicon-comment"></span> 私信
-     				   </button>
-					</div>
-				</div>
-				<div class="col-lg-1" style="text-align: center;">
-					<div class="col-lg-12" style="height: 30px;margin-top: 20px;">
-						<button type="button" class="btn btn-default btn-sm" title="举报">
-         					<span class="glyphicon glyphicon-plus-sign"></span> 举报
-     				   </button>
-					</div>
+				<div class="col-sm-3 row col-sm-offset-6 container" style="text-align: center;height: 30px;margin: 20px auto auto 0;padding:0; float: right;">
+					<button type="button" id="focuson" class="col-sm-4 btn btn-default btn-sm mybtn" title="关注">
+       					<span class="focusClass glyphicon glyphicon-plus"></span> <span class="focusvalue">关注</span>
+   				   </button>
+   				   <button type="button" class="col-sm-4 btn btn-default btn-sm mybtn" title="私信" data-toggle="modal" data-target="#privatemsg">
+       					<span class="glyphicon glyphicon-comment" ></span> 私信
+   				   </button>
+   				   
+   				   
 				</div>
 			</div>
 
@@ -105,12 +103,11 @@
                 	时间：2020-02-02
                 	描述：播放视频窗口
                 -->
-				<div class="col-lg-9" style="height: 520px;">
-					
-					<div class="flowplayer " data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 480px; display: block;">
+				<div class="col-lg-9" style="margin-bottom: 30px;">
+					<div class="flowplayer videodiv" data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; display: block;">
 						<input type="hidden" id="videoId" th:value="${session.curVideo.videoId}">
 						<video autoplay="autoplay" class="fp-play" style="height: 100%"> 
-							<source type="video/mp4" class="" th:src="${session.curVideo.videoUrl}" style="height: 100%;">
+							<source type="video/mp4" class="" th:src="${session.curVideo.videoUrl}" style="height: 100%">
 						</video>
 						<div class="barrage ">
 							<div class="show">
@@ -119,9 +116,9 @@
 						</div>
 					</div>
 					
-					<div class="barrage " style="height: 30px ;width: 100%;">
-						<input type="text" class="barrage-txt" placeholder="请输入弹幕内容" style="text-indent:10px;">
-						<button type="button" class=" btn-default btn-sm barrage-send" style="margin-left: 10px;" title="弹幕">发布弹幕</button>
+					<div class="col-lg-12 barrage row" style="height: 30px ;width: 100%;">	
+						<input type="text" class="col-lg-10 barrage-txt" placeholder="请输入弹幕内容" style="text-indent:10px;">
+						<button type="button" class="col-lg-1 btn btn-default btn-sm barrage-send mybtn" style="margin-left: 10px;margin-top:4px;" title="弹幕">发布弹幕</button>
 					</div>
 				</div>
 				<!--
@@ -129,7 +126,7 @@
                 	时间：2020-02-02
                 	描述：视频信息
                 -->
-				<div class="container col-lg-3">
+				<div class="col-lg-3">
 					<table class="table table-condensed table-hover with-check" style="word-break:break-all; word-wrap:break-all;">
 						<caption style="font-size: 18px; font-weight: bold;">视频信息</caption>
 						<tbody class="row">
@@ -147,7 +144,7 @@
 							</tr>
 							<tr>
 								<td class="col-lg-4">发布时间</td>
-								<td class="col-lg-8" th:text="${session.curVideo.editDate}"></td>
+								<td class="col-lg-8"  th:text="${#dates.format(session.curVideo.editDate,'yyyy:MM:dd hh:mm:ss')}"></td>
 							</tr>
 							<tr>
 								<td class="col-lg-4">视频类型</td>
@@ -226,9 +223,11 @@
 													processData:false,
 													contentType:false,
 												  	success:function(result){  
-												  	
-												  		alert(result.message);	
-												  		
+												  		if(result.message=="点评成功"){
+												  			window.wxc.xcConfirm(result.message, window.wxc.xcConfirm.typeEnum.success);
+												  		}else{
+												  			window.wxc.xcConfirm(result.message, window.wxc.xcConfirm.typeEnum.warning);
+												  		}
 													}//success:function
 												});//ajax
 											}		
@@ -240,8 +239,8 @@
 							<button id="c_button" type="button" class="btn btn-default btn-sm" title="收藏">
 	         					<span class="c_class glyphicon glyphicon-star-empty"></span><span class="c_value">收藏</span>
 		     				</button>
-							<button type="button" class="btn btn-default btn-sm" title="下载">
-		         				<span class="glyphicon glyphicon-save"></span>下载
+							<button type="button" id="barrage_on_off" class="btn btn-default btn-sm" title="下载">
+		         				<span class="barrage_class glyphicon glyphicon-eye-open">弹幕开</span>
 		     				</button>
 						</div>
 					</div>
@@ -251,12 +250,11 @@
 		
 			<div class="container-fluid">
 
-				<div style="font-size: 20px; font-weight: bold; margin: 5px 0;">视频推荐</div>
+				<div style="font-size: 20px; font-weight: bold; margin-top: 35px;">视频推荐</div>
 
 				<div class="container-fluid row" style="margin: 0;padding: 0;">
 
 					<div id="videoList"></div>
-					<button class="btn btn-default" style="margin: 0; padding: 0; width: 100%; height: 30px;margin-top: 10px;background-color: #EBEBEB;">Load More</button>
 				</div>
 			</div>
 		</div>
@@ -274,7 +272,43 @@
 				<a href="#">Back to top</a>
 			</p>
 		</footer>
-
+		<div class="modal fade" id="privatemsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 50%; height: auto;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">用户私信</h4>
+					</div>
+					<div class="modal-body" >
+						<form id="msgForm" action="#" class="form-horizontal" role="form">
+						
+							<input type="hidden" name="receiveUserId" th:value="${session.curVideo.user.userId}">
+							<input type="hidden" name="msgTypeId" value="1">
+							
+							<div class="form-group">	
+								<label for="firstname" class="col-sm-2 control-label">主 题</label>					
+								<div class="col-sm-10">
+									<input type="text"  name="msgTitle" class="form-control" placeholder="输入主题">
+								</div>
+							</div>
+							
+							<div class="form-group">	
+								<label for="firstname" class="col-sm-2 control-label">内 容</label>					
+								<div class="col-sm-10">
+									<textarea class="form-control" name="msgContext" style="resize:none;" rows="5" placeholder="输入内容"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" id="sendMsg">提交更改</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 
 
 		<script src="/js/jquery.min.js"></script>
@@ -282,78 +316,135 @@
 		<script src="/js/flowplayer.min.js"></script>
 
 		<script src="/js/bootstrap.min.js"></script>
+
+		<script src="/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+
 		<script>
+			$(function(){
+	            var a = $(".videodiv").width();
+	            $('.videodiv').css('height',a*0.57);
+	        });
+			$(window).resize(function () {          //当浏览器大小变化时
+				 var a = $(".videodiv").width();
+		         $('.videodiv').css('height',a*0.57);
+			});
+			
 			$(function() {
 				$("#barrage_on_off").click(function() {
 					$(".barrage").toggle();
 					return false;
 				});
-				$(".barrage-send").click(function() {
-					var text = $(".barrage-txt").val();
-					var div = "<div>" + text + "</div>";
-					var width = $(".barrage").width();
-					var height = Math.floor(Math.random() * $(".barrage").height());
-					$(".show").append(div);
-					var length = $('.show div').length;
-					$('.show div').eq(length - 1).css({
-						'top': height,
-						'width': $('.show div').eq(length - 1).width()
-					});
-					$('.show div').eq(length - 1).animate({
-						right: width
-					}, 6000);
-				})
+				
 			});	
-		
+			
+			//发送与接受弹幕
+			$(document).ready(function(){
+				var videoId = $('#videoId').val();
+			    if(typeof(WebSocket) == "undefined") {
+			        console.log("您的浏览器不支持WebSocket");
+			    }else{
+			        index = new WebSocket("ws://localhost:80/BarrageWebSocket?videoId="+videoId);
+			        //打开事件
+			        index.onopen = function() {
+			            console.log("Socket 已打开");
+			            //index.send("这是来自客户端的消息" + location.href + new Date());
+			        };
+			        //获得消息事件
+			        index.onmessage = function(msg) {
+			            //console.log("data == "+msg.data);
+			            var text = msg.data
+						var div = "<div>" + text + "</div>";
+						
+						var width = $(".barrage").width();
+						var height = Math.floor(Math.random() * $(".barrage").height());
+						$(".show").append(div);
+						var length = $('.show div').length;
+						$('.show div').eq(length-1).css({
+							'top': height,
+							'width': $('.show div').eq(length-1).width()+3
+						});
+						$('.show div').eq(length-1).animate({
+							right: width+1
+						}, 20000);
+			            //var result2 = $.parseJSON(msg.data); // 一个Object对象
+			        };
+			        //关闭事件
+			        index.onclose = function() {
+			            console.log("Socket已关闭");
+			        };
+			        //发生了错误事件
+			        index.onerror = function() {
+			          //  alert("Socket发生了错误");
+			        };
+			        $(".barrage-send").click(function() {
+						var text = $(".barrage-txt").val();
+						$.ajax({
+							url:"/BarrageController/sendGroupMessage/"+videoId,
+							async:false,
+							type:"post",
+							data:{"message":text},
+							dataType:"JSON",
+							success:function(data){}
+						});
+					})
+			    }
+			});
+			
+				
+		    
+			//点评的切换事件
 			$(".pop").click(function(){
 				$(".pop").popover("show");
 			});
 			
+			//视频推荐，待改进
 			$(document).ready(function(){
 				$.ajax({
-					url:"/VideoController/SimpleVideoListByAjax",
-					async:true,
-					dataType:"JSON",
-				  	success:function(data){				  		 
-				  		 $.each(data, function(i,val){
-				  			 var div1 = $('<div class="col-lg-4" style="padding:0;margin-top: 4px;margin-bottom: 4px;  height: 200px;" />'); 
-				  			
-				  			 var div2 = $('<div class="container-fluid" />');
-				  			 div2.appendTo(div1);
-				  			 var div31 = $('<div class="container-fluid col-lg-12" style="height: 200px; border: 1px solid rgba(0,0,0,.125);padding: 0px;" />');
-				  			 div31.appendTo(div2);
-				  			
-				  			 var div32 = $('<div class="container-fluid col-lg-12" style="width: 100%; margin-top: 2px;padding-left: 6px; position: relative;left:;top: -55px;color: white;display: inline-block; opacity: 0.7;background: #000;" />');
-				  			 div32.appendTo(div2);
-				  			
-				  			 var div4 = $('<div class="flowplayer" data-swf="flowplayer.swf" data-ratio="0.4167" style="width: 100%; height: 100%; display: block;" />');
-				  			 div4.appendTo(div31);
-				  			
-				  			 var img = $('<img class="videoplay"  style="width: 100%;height: 100%;" />');
-				  			 img.appendTo(div4);
-				  			 img.attr("src",this.thumbnailUrl);
-				  			
-				  			 var img2 = $('<img style="height: 50px;width: 50px;float: left;border-radius:50%;margin-right: 4px;"/>');
-				  			 img2.appendTo(div32);
-				  			 img2.attr("src",this.user.iconUrl);
-				  			 
-				  			 var h3 = $('<h3 style="margin-top: 0;margin-bottom: 2px;" />');
-				  			 h3.html("["+this.videoTitle+"]").appendTo(div32);
-				  			
-				  			 var p = $('<p style="margin-bottom: 4px;">');
-				  			 p.html(this.videoInfo.substring(0,18)+"...").appendTo(div32);
-				  			
-				  			 $("#videoList").before(div1);
-				  			 			
-				  			img.click(function() {
-				  				 window.open("/VideoController/videoPlay?videoId="+val.videoId);
+					url:"/VideoController/getRecommendVideo",
+					async: true,
+					type: "get",
+					dataType: "JSON",
+					error: function() {
+						window.wxc.xcConfirm("失败",window.wxc.xcConfirm.typeEnum.error);
+					},
+					success: function(data1) {
+						$.each(data1,function(i,val) {
+							var div121=$('<div class="col-sm-4"/>');
+							var div1211=$('<div class="view view-first" style="width: 100%; height: auto;"/>');
+							div1211.appendTo(div121);
+							
+							var div1211_a=$('<a class="videodiv2" style="width: 100%; display: block;"/>');
+							div1211_a.appendTo(div1211);
+							
+							var div1211_a_img=$('<img class="img-responsive" alt="" style="width: 100%; height: 100%;"/>');
+							div1211_a_img.attr("src",this.thumbnailUrl);
+							div1211_a_img.appendTo(div1211_a);
+							
+							var div121_div=$('<div class="tab_desc"/>');
+							div121_div.appendTo(div121);
+							
+							var div121_div_a=$('<a href="#">Look Now</a>');
+							div121_div_a.appendTo(div121_div);
+							
+							div121.appendTo($("#videoList"));
+						
+					
+							div121_div_a.click(function(){
+								 window.open("/VideoController/videoPlay?videoId="+val.videoId);
 							});
-					  	});
+							
+							
+						});
 					}
-				})
+				});
 				//$(".footer").html(htmlobj.responseText);
 			});
 			
+			var view = function(){
+				
+			}
+			
+			//视频点赞
 			$('.dianzan').click(
 				function(){
 					var videoId = $('#videoId').val();
@@ -363,11 +454,11 @@
 						data:{"videoId":videoId},
 						dataType:"JSON",
 						error:function(data){
-							alert(data.message);
+							window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.error);
 						},
 					  	success:function(data){  		
 					  		if(data.message!="点赞成功"){
-					  			alert(data.message);
+					  			window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.warning);
 					  		}else{
 					  			var ppNum = $('#ppNum').html();
 						  		var ppNum2 = parseInt(ppNum)+1;
@@ -380,6 +471,7 @@
 				}		
 			);
 			
+			//判断用户是否已关注
 			$(document).ready(
 				function(){			
 					var focusedId = $('#focusedid').val();
@@ -390,7 +482,7 @@
 						data:{"focusedId":focusedId},
 						dataType:"JSON",
 						error:function(data){
-							alert(data.message);
+							window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.error);
 						},
 					  	success:function(data){
 					  		if(data.message=="已关注"){
@@ -408,7 +500,7 @@
 											data:{"focusedId":focusedId},
 											dataType:"JSON",
 											error:function(data){
-												alert(data.message);
+												window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.error);
 											},
 										  	success:function(data){
 										  		
@@ -416,10 +508,8 @@
 										  			$('.focusClass').removeClass("glyphicon-plus");
 											  		$('.focusClass').addClass('glyphicon-ok-circle');
 											  		$('.focusvalue').html("已关注");
-										  		}else if(data.message=="不可以对自己进行关注"){
-										  			alert('不可以对自己进行关注');
-										  		}else if(data.message=="关注失败"){
-										  			alert('关注失败');
+										  		}else{
+										  			window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.warning);
 										  		}
 										  	}
 										})
@@ -431,7 +521,7 @@
 				}			
 			);
 			
-			
+			//判断视频是否已经收藏
 			$(document).ready(
 				function(){
 					var videoId = $('#videoId').val();
@@ -442,7 +532,7 @@
 						data:{"videoId":videoId},
 						dataType:"JSON",
 						error:function(data){
-							alert(data.message);
+							window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.error);
 						},
 						success:function(data){
 							if(data.message=="已收藏"){
@@ -461,7 +551,7 @@
 											data:{"videoId":videoId},
 											dataType:"JSON",
 											error:function(data){
-												alert(data.message);
+												window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.error);
 											},
 										  	success:function(data){
 										  		if(data.message=="收藏成功"){
@@ -469,10 +559,8 @@
 											  		$('.c_class').addClass('glyphicon-star');
 											  		$('.c_value').html("已收藏");
 										  			//alert("收藏成功");
-										  		}else if(data.message=="收藏失败"){
-										  			alert('收藏失败');
-										  		}else{
-											  		alert(data.message);
+										  		}else {
+										  			window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.warning);
 											  	}
 										  	}
 										})
@@ -485,7 +573,46 @@
 			
 			);
 			
+			//弹幕的切换
+			$(".barrage_class").click(
+				function(){
+					var state = $('.barrage_class').html();
+					if(state == "弹幕开"){
+						$('.barrage_class').html("弹幕关");
+						$('.barrage_class').removeClass("glyphicon-eye-open");
+						$('.barrage_class').addClass('glyphicon-eye-close');
+					}else{
+						$('.barrage_class').html("弹幕开");
+						$('.barrage_class').removeClass("glyphicon-eye-close");
+						$('.barrage_class').addClass('glyphicon-eye-open');
+					}
+				}		
+			);
 			
+			$("#sendMsg").click(function(){
+				$.ajax({
+					type : "post",
+					url : "/MsgController/addLetter",
+					async : true,
+					data : $('#msgForm').serialize(),
+					dataType : "JSON",
+					error : function(data) {
+						window.wxc.xcConfirm("发送失败", window.wxc.xcConfirm.typeEnum.error);
+					},
+					success : function(result) {								
+						window.wxc.xcConfirm(result.message, window.wxc.xcConfirm.typeEnum.success);
+					}//success:function
+				});//ajax
+			});
+			
+			$(function() {
+				var a = $(".videodiv2").width();
+				$('.videodiv2').css('height', a * 0.57);					
+			});
+			$(window).resize(function() { // 当浏览器大小变化时
+				a = $(".videodiv2").width();
+				$('.videodiv2').css('height', a * 0.57);
+			});
 			
 		</script>
 	</body>

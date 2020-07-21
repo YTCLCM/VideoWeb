@@ -2,6 +2,9 @@ package com.liucm.bean;
 
 import java.io.Serializable;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class VideoType implements Serializable{
 
 	private static final long serialVersionUID = 7142113169220822173L;

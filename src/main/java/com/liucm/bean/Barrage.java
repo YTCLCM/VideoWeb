@@ -3,6 +3,9 @@ package com.liucm.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Barrage implements Serializable{
 
 	private static final long serialVersionUID = -1803997340414937823L;

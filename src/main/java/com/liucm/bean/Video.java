@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties
-public class Video implements Serializable{
+public class Video implements Comparable<Video>, Serializable{
 
 	private static final long serialVersionUID = 2771694935756573328L;
 	private int videoId;
@@ -104,6 +102,10 @@ public class Video implements Serializable{
 	}
 	public void setBarrages(List<Barrage> barrages) {
 		this.barrages = barrages;
+	}
+	@Override
+	public int compareTo(Video video) {
+		return -this.editDate.compareTo(video.editDate);
 	}
 	
 }

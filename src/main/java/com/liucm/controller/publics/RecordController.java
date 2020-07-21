@@ -1,4 +1,4 @@
-package com.liucm.controller;
+package com.liucm.controller.publics;
 
 import java.util.List;
 

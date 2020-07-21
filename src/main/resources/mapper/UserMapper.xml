@@ -5,30 +5,48 @@
 	<select id="selectAll" resultType="com.liucm.bean.User">
 		select * from tb_user;
 	</select>
+	
+	<select id="selectAllUserId" resultType="Integer">
+		select user_id from tb_user order by user_id ASC;
+	</select>
 
-	<select id="selectOne" resultType="com.liucm.bean.User" resultMap="userResult"
-		parameterType="int">
-		select * from tb_user where user_id = #{userId};
+	<select id="selectUserByPage"
+		parameterType="com.liucm.util.Page" resultMap="userResult">
+		select * from tb_user
+		limit #{curCol} , #{pageSize}; 
+	</select>
+
+	<select id="selectOne" resultType="com.liucm.bean.User"
+		resultMap="userResult" parameterType="int">
+		select * from tb_user where
+		user_id = #{userId};
 	</select>
 	<resultMap type="com.liucm.bean.User" id="userResult">
-		<id column="user_id" property="userId"/>
-		<result column="user_name" property="userName"/>
-		<result column="user_age" property="userAge"/>
-		<result column="user_sex" property="userSex"/>
-		<result column="user_mail" property="userMail"/>
-		<result column="user_phone" property="userPhone"/>
-		<result column="user_address" property="userAddress"/>
-		<result column="password" property="password"/>
-		<result column="register_date" property="registerDate"/>
-		<result column="icon_url" property="iconUrl"/>
-		
-		<association property="userRole" javaType="com.liucm.bean.UserRole" column="role_id" select="com.liucm.dao.UserRoleMapper.selectOneByUserRoleId"></association>
-		<association property="state" javaType="com.liucm.bean.State" column="state_id" select="com.liucm.dao.StateMapper.selectStateByStateId"></association>
-		
+		<id column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="user_age" property="userAge" />
+		<result column="user_sex" property="userSex" />
+		<result column="user_mail" property="userMail" />
+		<result column="user_phone" property="userPhone" />
+		<result column="user_address" property="userAddress" />
+		<result column="password" property="password" />
+		<result column="register_date" property="registerDate" />
+		<result column="icon_url" property="iconUrl" />
+
+		<association property="userRole"
+			javaType="com.liucm.bean.UserRole" column="role_id"
+			select="com.liucm.dao.UserRoleMapper.selectOneByUserRoleId"></association>
+		<association property="state"
+			javaType="com.liucm.bean.State" column="state_id"
+			select="com.liucm.dao.StateMapper.selectStateByStateId"></association>
+
 	</resultMap>
+	
+	
 
 	<select id="selectOneByUserName"
-		resultType="com.liucm.bean.User" parameterType="String" resultMap="userResult">
+		resultType="com.liucm.bean.User" parameterType="String"
+		resultMap="userResult">
 		select * from tb_user
 		where user_name = #{userName};
 	</select>
@@ -73,12 +91,14 @@
 		user_sex = #{userSex},
 		user_mail = #{userMail},
 		user_phone = #{userPhone},
-		user_address = #{userAddress},
+		user_address =
+		#{userAddress},
 		password = #{password},
 		role_id = #{userRole.roleId},
 		register_date = #{registerDate},
 		fan_num = #{fanNum},
-		icon_url = #{iconUrl},
+		icon_url =
+		#{iconUrl},
 		state_id = #{state.stateId}
 		where user_id = #{userId};
 	</update>

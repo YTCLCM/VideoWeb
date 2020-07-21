@@ -17,6 +17,7 @@ public class ThumbnailThread extends Thread {
 	@Override
 	public void run() {
 		try {
+			sleep(10 * 1000);
 			String videothumbnailcommand = "cmd /c start /b ffmpeg -y -i " + "\"" + saveFileName + "\""
 					+ " -ss 5 -s 1920*1080 -f image2 -vframes 1 " + "\"" + thumbnailUrl + "\"";
 
@@ -26,7 +27,7 @@ public class ThumbnailThread extends Thread {
 
 			InputStream inputStream = process.getInputStream();
 			new FileUtil().copyFile(inputStream, thumbnailUrl);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

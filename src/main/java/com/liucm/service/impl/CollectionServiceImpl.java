@@ -74,18 +74,18 @@ public class CollectionServiceImpl implements CollectionService{
 	}
 
 	@Override
-	public String addCollection(int userId, int videoId) {
-		user = userMapper.selectOne(userId);
+	public String addCollection(int userId, int videoId) {		
 		video =videoServic.getVideoByVideoId(videoId);
+		user = userMapper.selectOne(userId);
 		if(user != null && user.getUserId() != video.getUser().getUserId()) {
-			try {
+			try {		
 				if(collectionMapper.selectOne(userId, videoId) == null) {
 					collectionMapper.insertOne(userId, videoId);
 					msg.setMsgTitle("收藏提醒");
 					msg.setMsgContext("你好！你的主题为《"+video.getVideoTitle()+"》的视频,被用户【"+user.getUserName()+"】的收藏");
 					msg.setMsgType(msgTypeService.findByTypeName("CollectionNotice"));
-					msg.setMsgState(stateService.getStateByStateId(6));
-					msg.setReceiveUser(user);
+					msg.setMsgState(stateService.getStateByStateId(6));			
+					msg.setReceiveUser(video.getUser());
 					msgMapper.insertMsg(msg);	
 					return "收藏成功";
 				}else {

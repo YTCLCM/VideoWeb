@@ -1,5 +1,6 @@
 package com.liucm.service.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.liucm.service.StateService;
 import com.liucm.service.UserService;
 import com.liucm.service.VideoService;
 import com.liucm.util.FileUtil;
+import com.liucm.util.Page;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -57,9 +59,6 @@ public class VideoServiceImpl implements VideoService {
 	private MsgMapper msgMapper;
 
 	@Autowired
-	private FileUtil fileUtil;
-
-	@Autowired
 	private Video video;
 
 	@Autowired
@@ -68,19 +67,21 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public String addComment(int starNum, int userId, int videoId) {
 		video = videoService.getVideoByVideoId(videoId);
-		user = userService.getUserByUserId(userId);
+		//发送视频的用户
+		user = userService.getUserByUserId(video.getUser().getUserId());
 		commentedStar = commentedStarMapper.getCommentedStar(userId, videoId);
 		if(commentedStar != null) {
 			return "你已经参与点评";
 		}
-		if (user != null && video != null && user.getUserId() != video.getUser().getUserId()) {
+		if (user != null && video != null ) {
 			commentedStarMapper.insertOne(userId, videoId, starNum);
+			msg.setReceiveUser(user);
+			//点评该视频的用户
 			user = userMapper.selectOne(userId);
 			msg.setMsgTitle("点评提醒");
 			msg.setMsgContext("你好！你的主题为《" + video.getVideoTitle() + "》的视频获得用户【" + user.getUserName() + "】的" + starNum + "星点评");
 			msg.setMsgType(msgTypeService.findByTypeName("EvaluateNotice"));
 			msg.setMsgState(stateService.getStateByStateId(6));
-			msg.setReceiveUser(user);
 			msgMapper.insertMsg(msg);
 			return "点评成功";
 		} else {
@@ -94,6 +95,19 @@ public class VideoServiceImpl implements VideoService {
 		int curIndex = (curPage - 1) * pageSize;
 		if (curPage > 0 && pageSize > 0 && curIndex <= videoCount) {
 			List<Video> videoList = videoMapper.selectVideoListByAjax(curIndex, pageSize);
+			if (videoList != null) {
+				return videoList;
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Video> getRecommendVideo(int curPage, int pageSize,int userId) {
+		int videoCount = videoMapper.selectVideoCount();
+		int curIndex = (curPage - 1) * pageSize;
+		if (curPage > 0 && pageSize > 0 && curIndex <= videoCount) {
+			List<Video> videoList = videoMapper.selectRecommendVideo(curIndex, pageSize,userId);
 			if (videoList != null) {
 				return videoList;
 			}
@@ -135,27 +149,38 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public List<Video> getEnableVideoByUserId(int userId) {
-		return videoMapper.selectEnableVideoByUserId(userId);
+		//return videoMapper.selectEnableVideoByUserId(userId);
+		return videoMapper.selectVideoByUserIdAndVideoStateId(userId, 4);
 	}
 
 	@Override
 	public List<Video> getDisableVideoByUserId(int userId) {
-		return videoMapper.selectDisableVideoByUserId(userId);
+		//return videoMapper.selectDisableVideoByUserId(userId);
+		List<Video> list = videoMapper.selectVideoByUserIdAndVideoStateId(userId, 2);
+		Iterator<Video> iterator = list.iterator();
+		list = videoMapper.selectVideoByUserIdAndVideoStateId(userId, 5);
+		while(iterator.hasNext()) {
+			list.add(iterator.next());
+		}
+		return list;
 	}
 
 	@Override
 	public List<Video> getVerifyingVideoByUserId(int userId) {
-		return videoMapper.selectVerifyingVideoByUserId(userId);
+		//return videoMapper.selectVerifyingVideoByUserId(userId);
+		return videoMapper.selectVideoByUserIdAndVideoStateId(userId, 1);
 	}
 
 	@Override
 	public List<Video> getVerifiedVideoByUserId(int userId) {
-		return videoMapper.selectVerifiedVideoByUserId(userId);
+		//return videoMapper.selectVerifiedVideoByUserId(userId);
+		return videoMapper.selectVideoByUserIdAndVideoStateId(userId, 2);
 	}
 
 	@Override
 	public List<Video> getVerifyFalseVideoByUserId(int userId) {
-		return videoMapper.selectVerifyFalseVideoByUserId(userId);
+		//return videoMapper.selectVerifyFalseVideoByUserId(userId);
+		return videoMapper.selectVideoByUserIdAndVideoStateId(userId, 3);
 	}
 
 	@Override
@@ -169,18 +194,24 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public int deleteVideo(int videoId) {
+	public String deleteVideo(int videoId) {
 		Video video = videoMapper.selectOneByVideoId(videoId);
-		// 获得视频存储的实际路径
-		String videoRealPath = filePathConfig.getFileUrl() + filePathConfig.getVideoPath()
-				+ video.getVideoUrl().substring(video.getVideoUrl().lastIndexOf("\\") + 1);
-		String imageRealPath = filePathConfig.getFileUrl() + filePathConfig.getImagePath()
-				+ video.getThumbnailUrl().substring(video.getThumbnailUrl().lastIndexOf("\\") + 1);
+		if(video != null) {
+			// 获得视频存储的实际路径
+			String videoRealPath = filePathConfig.getFileUrl() + filePathConfig.getVideoPath()
+					+ video.getVideoUrl().substring(video.getVideoUrl().lastIndexOf("\\") + 1);
+			String imageRealPath = filePathConfig.getFileUrl() + filePathConfig.getImagePath()
+					+ video.getThumbnailUrl().substring(video.getThumbnailUrl().lastIndexOf("\\") + 1);
 
-		// 删除文件
-		fileUtil.deleteAllFilesOfDir(fileUtil.getFile(videoRealPath));
-		fileUtil.deleteAllFilesOfDir(fileUtil.getFile(imageRealPath));
-		return videoMapper.deleteVideoByVideoId(videoId);
+			// 删除文件
+			FileUtil fileUtil = new FileUtil();
+			fileUtil.deleteAllFilesOfDir(fileUtil.getFile(videoRealPath));
+			fileUtil.deleteAllFilesOfDir(fileUtil.getFile(imageRealPath));
+			videoMapper.deleteVideoByVideoId(videoId);
+			return "视频删除成功";
+		}else {
+			return "该视频不存在";
+		}
 	}
 
 	@Override
@@ -219,5 +250,33 @@ public class VideoServiceImpl implements VideoService {
 			return "不可对自身视频点赞";
 		}
 	}
+
+	@Override
+	public List<Video> getVideoListByAjax(int curPage, int pageSize, int videoTypeId) {
+		return videoMapper.selectVideoByTypeAjax(curPage, pageSize,videoTypeId);
+	}
+
+	@Override
+	public String getVideoByPage(Page<Video> page) {
+		page.setTotalSize(videoMapper.selectVerifyVideoCount());
+		List<Video> data = videoMapper.selectVideoByPage(page,1);
+		if(data != null) {
+			page.setData(data);
+			return "查询成功";
+		}else {
+			return "查询失败";
+		}
+	}
+
+	@Override
+	public boolean verifyVideo(int videoId , int stateId) {
+		
+		videoMapper.updateVideoStateByVideoId(videoId, stateId);
+		
+		return true;
+	}
+
+
+
 
 }

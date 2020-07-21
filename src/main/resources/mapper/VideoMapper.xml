@@ -57,6 +57,15 @@
  	<select id="selectVideoCount" resultType="int">
  		select COUNT(*) from tb_video;
  	</select>
+ 	
+ 	
+ 	<select id="getAllVideoId" resultType="Integer">
+ 		select video_id from tb_video order by video_id asc;
+ 	</select>
+ 	
+ 	<select id="selectVerifyVideoCount" resultType="int">
+ 		select COUNT(*) from tb_video where video_state_id = 1;
+ 	</select>
  
  
  	
@@ -64,6 +73,13 @@
  		select * from tb_video 
 		ORDER BY pp_num Desc
 		LIMIT 0,#{pageSize};
+ 	</select>
+ 	<!-- 查询出推荐视频，不含自己的视频，按预测值由高到底排序 -->
+ 	<select id="selectRecommendVideo" parameterType="int" resultMap="videoresultplus">
+ 			SELECT v.* from tb_video as v inner join  (select video_id from tb_predict
+			where user_id = #{userId} and video_id not in (select video_id from tb_video where user_id = #{userId})
+			order by pre_star  desc		
+			LIMIT 0 , #{pageSize}) as p on v.video_id = p.video_id;
  	</select>
  	
  	<select id="selectVideoListByAjax" parameterType="int" resultMap="videoresultplus">
@@ -74,28 +90,20 @@
  		select * from tb_video limit #{curIndex}, #{pageSize} ;
  	</select>
  	
+ 	<select id="selectVideoByTypeAjax" parameterType="int" resultMap="videoresultplus">
+ 		select * from tb_video where videotype_id = #{videoTypeId} and video_state_id=4 order by rand() limit #{pageSize} ;
+ 	</select>
+ 	
+ 	<select id="selectVideoByPage"  resultMap="videoresultplus">
+ 		select * from tb_video where video_state_id = #{stateId} limit #{page.curCol} , #{page.pageSize}; 
+ 	</select>
+ 	
  	<select id="selectOneByVideoId" parameterType="int"  resultMap="videoresultplus">
  		select * from tb_video where video_id = #{videoId};
  	</select>
  	
- 	<select id="selectEnableVideoByUserId" parameterType="int"  resultMap="videoresultplus">
- 		select * from tb_video where user_id = #{userId} and video_state_id = 4;
- 	</select>
- 	
- 	<select id="selectDisableVideoByUserId" parameterType="int"  resultMap="videoresultplus">
- 		select * from tb_video where user_id = #{userId} and video_state_id = 5;
- 	</select>
- 	
- 	<select id="selectVerifyingVideoByUserId" parameterType="int"  resultMap="videoresultplus">
- 		select * from tb_video where user_id = #{userId} and video_state_id = 1;
- 	</select>
- 	
- 	<select id="selectVerifiedVideoByUserId" parameterType="int"  resultMap="videoresultplus">
- 		select * from tb_video where user_id = #{userId} and video_state_id = 2;
- 	</select>
- 	
- 	<select id="selectVerifyFalseVideoByUserId" parameterType="int"  resultMap="videoresultplus">
- 		select * from tb_video where user_id = #{userId} and video_state_id = 3;
+ 	<select id="selectVideoByUserIdAndVideoStateId" resultMap="videoresultplus">
+ 		select * from tb_video where user_id = #{userId} and video_state_id = #{videoStateId};
  	</select>
  	
  	<resultMap type="com.liucm.bean.Video" id="videoresult">

@@ -5,12 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Alias("User")
 @Component
-@ConfigurationProperties
 public class User implements Serializable{
 
 	private static final long serialVersionUID = -1266252492937582358L;

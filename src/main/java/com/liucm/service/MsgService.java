@@ -7,5 +7,9 @@ import com.liucm.bean.User;
 
 public interface MsgService {
 	public List<Message> findMsgByMsgType(User receive,String msgTypeName);
-	public int addMsg(Message msg);
+	public String addMsg(Message msg);
+	public String deleteMsg(int msgId);
+	public String updateReadMsg(int msgId,int stateId);
+	
+	public int getMsgSum(int userId);
 }

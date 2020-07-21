@@ -8,4 +8,12 @@ public interface UserRoleMapper {
 	public List<UserRole> selectAll();
 	
 	public UserRole selectOneByUserRoleId(Integer roleId);
+	
+	public UserRole selectOneByRoleName(String roleName);
+	
+	public int deleteOne(int roleId);
+	
+	public int addUserRole(String userRoleName);
+	
+	
 }

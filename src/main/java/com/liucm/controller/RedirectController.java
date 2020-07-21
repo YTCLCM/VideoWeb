@@ -40,6 +40,13 @@ public class RedirectController {
 		return view;
 	}
 	
+	@RequestMapping("/adminRedirect")
+	public ModelAndView adminRedirect() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("adminmanage");
+		return view;
+	}
+	
 	@RequestMapping("/videostoreRedirect")
 	public ModelAndView videostoreRedirect() {
 		ModelAndView view = new ModelAndView();
@@ -51,6 +58,21 @@ public class RedirectController {
 	public ModelAndView messageRedirect() {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("message");
+		return view;
+	}
+	
+	
+	@RequestMapping("/IndexRedirect")
+	public ModelAndView IndexRedirect() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("index2");
+		return view;
+	}
+	
+	@RequestMapping("/LARRedirect")
+	public ModelAndView LARRedirect() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("LAR");
 		return view;
 	}
 }

@@ -1,11 +1,13 @@
 package com.liucm.bean;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import java.io.Serializable;
+
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties
-public class CommentedStar {
+public class CommentedStar implements Serializable{
+
+	private static final long serialVersionUID = -7208043708543774541L;
 	private int commentedstarId;
 	private int userId;
 	private int videoId;

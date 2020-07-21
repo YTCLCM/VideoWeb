@@ -16,7 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.liucm.bean.User;
 import com.liucm.config.FilePathConfig;
 import com.liucm.service.UserService;
+import com.liucm.util.DateUtil;
+import com.liucm.util.MsgResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/UserController")
 public class UserController {
@@ -38,26 +43,33 @@ public class UserController {
 		if (null != user) {
 			request.getSession().setAttribute("user", user);
 			// return "redirect:Role";
-			if(user.getUserRole().getUserRole().equals("admin")) {
-				return "index";
+			if (user.getUserRole().getUserRole().equals("admin")) {
+				log.info("管理用户<"+userName+">在"+new DateUtil().getFormatDate(null)+"登录系统");
+				return "redirect:/RedirectController/adminRedirect";
+			} else if (user.getUserRole().getUserRole().equals("public")) {
+				log.info("普通用户<"+userName+">在"+new DateUtil().getFormatDate(null)+"登录系统");
+				return "redirect:/RedirectController/IndexRedirect";
+			} else if (user.getUserRole().getUserRole().equals("restrict")) {
+				log.info("受限用户<"+userName+">在"+new DateUtil().getFormatDate(null)+"尝试登录系统");
+				return "redirect:/RedirectController/IndexRedirect";
 			}
-			else if(user.getUserRole().getUserRole().equals("public")){
-				return "index";
-			}
-			else if(user.getUserRole().getUserRole().equals("restrict")){
-				return "index";
-			}
-			
+
 		}
+
 		return "LAR";
 	}
 
 	@PostMapping("/register")
 	@ResponseBody
-	public boolean register(HttpServletRequest request) {
+	public String register(HttpServletRequest request) {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-		return userService.addUser(userName, password);
+		boolean signal = userService.addUser(userName, password);
+		if(signal == false)
+			return "The userName was exist!";
+		else {
+			return "register: SUCCESS";
+		}
 	}
 
 	@PostMapping("/forget")
@@ -73,6 +85,7 @@ public class UserController {
 
 	/**
 	 * 修改密码
+	 * 
 	 * @param request
 	 * @param oldpswd
 	 * @param newpswd
@@ -80,12 +93,18 @@ public class UserController {
 	 */
 	@PostMapping("/passwordUpdate")
 	@ResponseBody
-	public String passwordUpdate(HttpServletRequest request, @RequestParam String oldpswd,
+	public MsgResponse passwordUpdate(HttpServletRequest request, @RequestParam String oldpswd,
 			@RequestParam String newpswd) {
 		User user = request.getSession().getAttribute("user") != null ? (User) request.getSession().getAttribute("user")
 				: null;
-		return userService.updatePswd(user, oldpswd, newpswd);
-		
+		String message = userService.updatePswd(user, oldpswd, newpswd);
+		if (message.equals("密码修改成功")) {
+			user.setPassword(newpswd);
+			request.getSession().removeAttribute("user");
+			request.getSession().setAttribute("user", user);
+		}
+		return MsgResponse.success(message, null);
+
 	}
 
 	/**
@@ -102,9 +121,8 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userInfoUpdate", method = RequestMethod.POST)
-	public String userInfoUpdate(HttpServletRequest request,
-			@RequestParam String userAge, @RequestParam String userSex, @RequestParam String userMail,
-			@RequestParam String userPhone, @RequestParam String userAddress,
+	public String userInfoUpdate(HttpServletRequest request, @RequestParam String userAge, @RequestParam String userSex,
+			@RequestParam String userMail, @RequestParam String userPhone, @RequestParam String userAddress,
 			@RequestParam("iconFile") MultipartFile iconFile) {
 
 		String saveFileName = "";

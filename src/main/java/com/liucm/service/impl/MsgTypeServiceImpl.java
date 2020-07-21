@@ -41,7 +41,7 @@ public class MsgTypeServiceImpl implements MsgTypeService{
 
 	@Override
 	public MsgType findOneBymsgTypeId(int msgTypeId) {
-		return null;
+		return msgTypeMapper.selectOne(msgTypeId);
 	}
 
 }

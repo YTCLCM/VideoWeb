@@ -3,94 +3,119 @@
 
 	<head>
 		<meta charset="UTF-8">
-		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
 		<title>视频上传</title>
 		<link rel="icon" href="http://glorywebsdemo.com/themeforest/html/carveordering/images/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="/css/index.css" />
-		<link rel="stylesheet" href="/css/skin.css">
-		<link href="/css/cover.css" rel="stylesheet">
+<!-- 		<link href="/css/cover.css" rel="stylesheet"> -->
+		<link rel="stylesheet" type="text/css" href="/css/xcConfirm.css"/>
+		
+		
+		<!-- icon图标 -->
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
+		<!-- 导航条 -->
+		<link rel="stylesheet" href="/css/menu.css" />
+		<link href="/css/style2.css" rel="stylesheet" type="text/css" media="all" />
+		<style type="text/css">
+			.progress {
+			    width: 100%;
+			    height: 10px;
+			    border: 1px solid #ccc;
+			    border-radius: 10px;
+			    margin: 10px 0px;
+			    overflow: hidden;
+			}
+			/* 初始状态设置进度条宽度为0px */
+			.progress > div {
+			    width: 0px;     
+			    height: 100%;
+			    background-color: yellowgreen;
+			    transition: all .3s ease;
+			}
+		</style>
+
 	</head>
 
 	<body>
-		<div class="container">
-			<div class="container-fluid" style="margin-bottom: 4px;padding: 0;">
-				<div class="container-fluid row">
-
-					<!--
-                	作者：2539829814@qq.com
-                	时间：2019-12-30
-                	描述：巨幕
-                -->
-					<div class="col-lg-3" style="height: auto; ">
-						<h1>视频发布页</h1>
-						<p>欢迎来到本视频网站。在这，你将发现更多美。</p>
-						<p>
-							<a class="btn btn-info btn-1g" href="http://www.baidu.com" role="button">Learn More</a>
-						</p>
+		<div class="container ">
+			<div class="container-fluid main-content" style="margin-bottom: 4px;padding: 0;">
+				<div class="header ">
+					<div class="logo">
+						<img th:src="${session.user.iconUrl}" style="float: left; padding:0;margin-right:15px; width: 45px; height: 45px; border-radius: 50%;" /> <a href="#" style="float: left;">
+							<h1>视频上传</h1>
+						</a>
 					</div>
-
-					<!--
-                	作者：2539829814@qq.com
-                	时间：2019-12-30
-                	描述：轮播图
-                	图片要求：800*200的图片大小
-                -->
-					<div class="container col-lg-8 col-lg-offset-1 lunbotu" style="height: 200px;padding: 0;">
-						<div id="myCarousel" class="carousel slide" style="">
-							<!-- 轮播（Carousel）指标 -->
-							<ol class="carousel-indicators">
-								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-								<li data-target="#myCarousel" data-slide-to="1"></li>
-								<li data-target="#myCarousel" data-slide-to="2"></li>
-							</ol>
-							<!-- 轮播（Carousel）项目 -->
-							<div class="carousel-inner" style="width: 100%; height: 200px;">
-								<div class="item active" align="center" style="width: 100%; height: 200px;">
-									<img src="/img/ad001.jpg" alt="First slide" style="width: 100%; height: 100%;">
-									<div class="carousel-caption">尽情期待</div>
-								</div>
-								<div class="item" align="center" style="width: 100%; height: 200px;">
-									<img src="/img/ad002.jpg" alt="Second slide" style="width: 100%; height: 100%;">
-									<div class="carousel-caption">诚邀加盟</div>
-								</div>
-								<div class="item" align="center" style="width: 100%; height: 200px;">
-									<img src="/img/ad003.jpg" alt="Third slide" style="width: 100%; height: 100%;">
-									<div class="carousel-caption">先到先得</div>
-								</div>
-							</div>
-							<!-- 轮播（Carousel）导航 -->
-							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								<span class="sr-only">Previous</span>
-							</a>
-							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-								<span class="sr-only">Next</span>
-							</a>
+					<div class="search">
+						<div class="search2">
+							<form>
+								<i class="fa fa-search"></i> <input type="text" value="Search for a movie" onFocus="this.value = '';"
+									onBlur="if (this.value == '') {this.value = 'Search for a movie, play, event, sport or more';}" />
+							</form>
 						</div>
+					</div>
+				<div class="clearfix"></div>				
+			</div>
+			
+			<nav class="navbar navbar-default navbar-inverse">
+				<div class="container-fluid w3_megamenu" >
+					<div class="navbar-header">
+						<button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle">
+							<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+						</button>
+						<a href="#" class="navbar-brand"><i class="fa fa-home"></i></a>
 
 					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav mytab">
+							<li data-toggle="tab" class="active">
+								<a id="allMsgButton" href="#">视频上传</a>
+							</li>
+							
+
+						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown" data-toggle="tab">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span title="设置" class="glyphicon glyphicon-cog"></span></a>
+								<ul class="dropdown-menu mytab">
+									<li data-toggle="tab" class="dropdown-header">设置中心</li>
+									<li data-toggle="tab">
+										<a href="#">用户登录</a>
+									</li>
+									<li data-toggle="tab">
+										<a href="#">安全退出</a>
+									</li>
+									<li data-toggle="tab">
+										<a href="#">账号注销</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
 				</div>
-			</div>
+				<!--/.container-fluid -->
+			</nav>
+			
 			<form class="form-horizontal" id="videouploadform" action="#" method="post" enctype="multipart/form-data" role="form">
 				<div class="form-group">
-					<label for="firstname" class="col-sm-1 control-label">视频名称</label>
-					<div class="col-sm-11">
+					<label for="firstname" class="col-lg-1 col-lg-offset-1 control-label">视频名称</label>
+					<div class="col-sm-9">
 						<input type="text" name="videoTitle" class="form-control" placeholder="请输入视频名称">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="lastname" class="col-sm-1 control-label">视频描述</label>
-					<div class="col-sm-11">
+					<label for="lastname" class="col-lg-1 col-lg-offset-1 control-label">视频描述</label>
+					<div class="col-sm-9">
 						<input type="text" name="videoInfo" class="form-control" placeholder="请输入视频描述">
 					</div>
 				</div>
 				
 				<div class="form-group">
-					<label for="lastname" class="col-sm-1 control-label">视频类型</label>
-					<div class="col-sm-11">
+					<label for="lastname" class="col-lg-1 col-lg-offset-1 control-label">视频类型</label>
+					<div class="col-sm-9">
 						<select class="form-control" name="typeName" placeholder="请选择视频类型">
 					      <option th:each="p,var : ${videoTypeList}"  >
 					      	<p th:text="${p.typeName }"></p>
@@ -100,16 +125,22 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="lastname" class="col-sm-1 control-label">视频URL</label>
-					<div class="col-sm-11">
-						<input id="video-selector" type="file" accept="video/mp4,video/avi"  name="videoFile" class="form-control" placeholder="请选择文件">
+					<label for="lastname" class="col-lg-1 col-lg-offset-1 control-label">视频URL</label>
+					<div class="col-sm-9">
+						
+						<input id="video-selector"  type="file" accept="video/mp4"  name="videoFile" class="form-control" placeholder="请选择MP4类型文件,文件必须小于1000M">
+						<div class="progress">
+						    <div></div>
+						</div>
+						<label style="color:red;">[注]: 请选择<a href="https://baike.baidu.com/item/mp4/9218018?fr=aladdin"> mp4 </a>类型文件,文件必须小于1000M</label>
 					</div>
+					
 				</div>
 				 
 				<input type="hidden" name="userId" th:value="${session.user.userId}" class="form-control" placeholder="请选择文件,文件必须小于200M">
 				 
 				<div class="form-group">
-					<div class="col-sm-offset-1 col-sm-10">
+					<div class="col-sm-offset-2 col-sm-10">
 						<div class="checkbox">
 							<label>
 							<input type="checkbox"> 本人确认已仔细阅读并充分理解<a href="https://www.vcg.com/help/privacy-policy"> 个人信息保护政策</a>与<a href="https://www.vcg.com/help/website-terms"> 网站使用条框</a> 的全部内容，同意接受上述协议的全部内容
@@ -118,14 +149,16 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-lg-offset-1 col-lg-1">
-						<button id="videoupload" type="button" class="btn btn-default">上传</button>
+					<div class="col-lg-offset-2 col-lg-1">
+						<button id="videoupload" type="button" class="btn btn-default" >上传</button>
 					</div>
 					<div class="col-lg-1">
-						<button type="reset" class="btn btn-default">取消</button>
+						<button type="reset" class="btn btn-default" id="reset">取消</button>
 					</div>
 				</div>
 			</form>
+			</div>
+			
 			
 			
 		</div>
@@ -136,36 +169,81 @@
 		<script src="/js/bootstrap.min.js"></script>
 		<script src="/js/carousel.js"></script>
 		<script src="/js/lunbotu.js"></script>
+		
+		<script src="/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>		
+		<script src="/js/home.js"></script>
 		<script type="text/javascript">
+		 // 设置表单提交标志
+	    var submit = false;
+	    function checkSubmit() {
+	        if(!submit) {
+	            // 表单提交后设置标志位
+	            submit = true;
+	            return true;
+	        }
+	        // 表单已经提交，不允许再次提交
+	        window.wxc.xcConfirm("请不要重复提交表单！", window.wxc.xcConfirm.typeEnum.warning);
+	        return false;
+	    }
+	    $("#reset").click(function(){
+	    	submit = false;
+	    });
 		function alertObj(obj){
 		    var str="";
 		    for (var item in obj){
 		        str +=item+":"+obj[item]+"\n";
 		    }
-		    alert(str);
+		    window.wxc.xcConfirm(str, window.wxc.xcConfirm.typeEnum.info);
 		}
 		$("#videoupload").click(			
 				function(){
-					
+					var size = $("#video-selector")[0].files[0].size;
 					var formData = new FormData($("#videouploadform")[0]);
-					$.ajax({
-						type:"post",
-						url:"/VideoController/videoUpload",
-						async:true,
-						data: formData,
-						dataType:"JSON",
-						processData:false,
-						contentType:false,
-					  	success:function(result){  
-					  	
-					  		alert(result.message);	
-					  		window.close();
-					  		
-						}//success:function
-					});//ajax
+					if(size/1024/1024<=1000 && checkSubmit()){
+						$.ajax({
+							type:"post",
+							url:"/VideoController/videoUpload",
+							async:true,
+							data: formData,
+							dataType:"JSON",
+							processData:false,
+							contentType:false,
+							xhr: function() {
+					            var xhr = new XMLHttpRequest();
+					            //使用XMLHttpRequest.upload监听上传过程，注册progress事件，打印回调函数中的event事件
+					            xhr.upload.addEventListener('progress', function (e) {
+					                console.log(e);
+					                //loaded代表上传了多少
+					                //total代表总数为多少
+					                var progressRate = (e.loaded / e.total) * 100 + '%';
+	
+					                //通过设置进度条的宽度达到效果
+					                $('.progress > div').css('width', progressRate);
+					            })
+	
+					            return xhr;
+					        },
+						  	success:function(result){  
+						  		setTimeout(function(){
+						  			window.wxc.xcConfirm(result.message, window.wxc.xcConfirm.typeEnum.success);
+						  		},100);
+						  	
+						  		
+						  		
+						  		//window.close();
+						  		
+							}//success:function
+						});//ajax
+					}else if(!submit){
+						window.wxc.xcConfirm("视频过大，请自行压制！", window.wxc.xcConfirm.typeEnum.warning);
+					}
 				}		
 			);
 		</script>
+		<script type="text/javascript">
+		   
+		</script>
+
 		
 	</body>
 

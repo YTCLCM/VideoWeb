@@ -1,11 +1,13 @@
 package com.liucm.bean;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import java.io.Serializable;
+
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties
-public class Message {
+public class Message implements Serializable{
+
+	private static final long serialVersionUID = -6366336765301601479L;
 	private int msgId;
 	private String msgTitle;
 	private String msgContext;

@@ -19,9 +19,29 @@
 		);
 	</insert>
 	
+	<insert id="addPredictStar" useGeneratedKeys="true" >
+		insert into tb_predict(
+			user_id,
+			video_id,
+			pre_star
+		)
+		values(
+			#{userId},
+			#{videoId},
+			#{predict}
+		);
+	</insert>
+	
 	<select id="selectAll" resultType="com.liucm.bean.CommentedStar">
 		select * from tb_commentedstar;
 	</select>
+	
+	<select id="getUIModelList" resultType="com.liucm.bean.UAIModel">
+		select user_id,video_id,star_num from tb_commentedstar order by user_id,video_id ASC;
+	</select>
+	<delete id="deletePredict">
+		truncate table tb_predict;
+	</delete>
 	
 	<select id="getCommentedStar" resultType="com.liucm.bean.CommentedStar">
 		select * from tb_commentedstar

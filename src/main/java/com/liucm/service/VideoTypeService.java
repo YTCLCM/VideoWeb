@@ -6,6 +6,12 @@ import com.liucm.bean.VideoType;
 
 public interface VideoTypeService {
 	public List<VideoType> getVideoTypeAll();
-	public VideoType  getVideoTypeByTypeName(String typeName);
-	public VideoType  getVideoTypeByVideoTypeId(int videoId);
+
+	public VideoType getVideoTypeByTypeName(String typeName);
+
+	public VideoType getVideoTypeByVideoTypeId(int videoId);
+
+	public String addVideoType(String typeName);
+	
+	public String deleteVideoType(int videoTypeId);
 }

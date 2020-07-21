@@ -32,6 +32,6 @@
 	</update>
 	
 	<delete id="delete" parameterType="int">
-		delete from tb_videotype where videitype_id = #{videoTypeId}
+		delete from tb_videotype where videotype_id = #{videoTypeId}
 	</delete>
 </mapper>

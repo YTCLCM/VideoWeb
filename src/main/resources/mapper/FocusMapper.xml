@@ -9,6 +9,14 @@
 		where a.user_id in(
 		SELECT b.focused_id from tb_focus as b where b.user_id = #{userId})
 	</select>
+	
+	
+	<select id="selectFocusedsId" resultType="Integer"
+		parameterType="int">
+		select user_id from tb_user as a
+		where a.user_id in(
+		SELECT b.focused_id from tb_focus as b where b.user_id = #{userId})
+	</select>
 
 	<select id="selectFocuses" resultType="com.liucm.bean.User"
 		parameterType="int">
