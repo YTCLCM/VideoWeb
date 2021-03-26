@@ -22,3 +22,11 @@ pagesize.pageSize=8
 5、项目打包：mvn package
 
 5、运行jar命令：java -jar videoweb.jar
+
+
+
+
+
+
+# 最新的token
+# token：2021831-4313bf73f9e259fd938c66dee0957ec2
