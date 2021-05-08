@@ -49,18 +49,18 @@ public class StringUtil {
 	 */
 	@Component
 	@Order(1)
-	public class AppRestrict implements ApplicationRunner {
+// 	public class AppRestrict implements ApplicationRunner {
 		
-		@Override
-		public void run(ApplicationArguments args) throws Exception {
-			ConfigProperties properties = ConfigProperties.getInstance("/token.properties");
-			String token = properties.getConfigPropertiesValue("token");			
-			boolean run = MD5Util.verifyToken(token);
-			if(token.substring(0, 8).compareTo(new DateUtil().getFormatDate("yyyyMMdd")) < 0 || !run) {
-				System.err.println("项目已到期");
-				System.exit(0);
-			}
-		}
+// 		@Override
+// 		public void run(ApplicationArguments args) throws Exception {
+// 			ConfigProperties properties = ConfigProperties.getInstance("/token.properties");
+// 			String token = properties.getConfigPropertiesValue("token");			
+// 			boolean run = MD5Util.verifyToken(token);
+// 			if(token.substring(0, 8).compareTo(new DateUtil().getFormatDate("yyyyMMdd")) < 0 || !run) {
+// 				System.err.println("项目已到期");
+// 				System.exit(0);
+// 			}
+// 		}
 		
-	}
+// 	}
 }
