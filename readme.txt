@@ -22,12 +22,3 @@ pagesize.pageSize=8
 5、项目打包：mvn package
 
 5、运行jar命令：java -jar videoweb.jar
-
-
-
-
-
-
-# 最新的token, 过这个日期，联系邮箱liucm1997@qq.com
-# token：20210531-f062ee98b0207dd3576efa93762473b7
-
