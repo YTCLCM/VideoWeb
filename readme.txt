@@ -22,3 +22,5 @@ pagesize.pageSize=8
 5、项目打包：mvn package
 
 5、运行jar命令：java -jar videoweb.jar
+
+本开源代码禁止倒卖获利，如具有违法犯罪行为一切后果自负
